@@ -24,6 +24,10 @@ continuam sendo os fornecidos pelos respectivos pacotes; a licença do BRANCHY
 não os substitui. Antes de publicar binários, revisar também os avisos de .NET,
 Windows App SDK e componentes de runtime efetivamente incluídos no pacote.
 
+O pacote Release 1.0 inclui o runtime .NET 10.0.12 e usa Windows App SDK 2.4.0.
+Os termos e avisos desses pacotes estão preservados em `branchy/Resources/ThirdParty`,
+incluídos no MSIX e também fornecidos na pasta `Licenses` do ZIP de instalação.
+
 ## Git
 
 O BRANCHY executa o Git instalado pelo usuário como processo separado. A cópia
