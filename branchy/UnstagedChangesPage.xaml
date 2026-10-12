@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Branchy.UnstagedChangesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Branchy.Converters"
+    xmlns:models="using:Branchy.Models"
+    Background="Transparent">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <TextBlock
+            x:Uid="EmptyUnstaged"
+            Margin="24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            TextAlignment="Center"
+            TextWrapping="Wrap"
+            Visibility="{Binding HasNoUnstagedFiles, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <ListView
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding UnstagedFiles}"
+            SelectionChanged="UnstagedList_SelectionChanged"
+            SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:GitFileChange">
+                    <Grid Padding="10,6" ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Width="24"
+                            Height="24"
+                            Background="{ThemeResource AccentFillColorSecondaryBrush}"
+                            CornerRadius="12">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                Text="{x:Bind WorkTreeStatusCode}" />
+                        </Border>
+                        <StackPanel
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Spacing="2">
+                            <TextBlock
+                                Text="{x:Bind Path}"
+                                TextTrimming="CharacterEllipsis" />
+                            <TextBlock
+                                x:Uid="ConflictBadgeText"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                Visibility="{x:Bind IsConflicted}" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="2"
+                            Orientation="Horizontal"
+                            Spacing="2">
+                            <Button
+                                x:Uid="PartialStageFileButton"
+                                Width="32"
+                                Height="32"
+                                Padding="0"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Click="PartialStageFile_Click"
+                                Visibility="{x:Bind CanPartiallyStage}">
+                                <SymbolIcon Symbol="Edit" />
+                            </Button>
+                            <Button
+                                x:Uid="DiscardFileButton"
+                                Width="32"
+                                Height="32"
+                                Padding="0"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Click="DiscardFile_Click"
+                                Visibility="{x:Bind CanDiscardWorkingTreeChange}">
+                                <SymbolIcon Symbol="Undo" />
+                            </Button>
+                            <Button
+                                x:Uid="StageFileButton"
+                                Width="32"
+                                Height="32"
+                                Padding="0"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Click="StageFile_Click">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

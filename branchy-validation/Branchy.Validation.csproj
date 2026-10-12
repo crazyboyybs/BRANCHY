@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../branchy/Models/*.cs" Link="Models/%(Filename)%(Extension)" />
+    <Compile Include="../branchy/Services/ILocalizationService.cs" Link="Services/ILocalizationService.cs" />
+    <Compile Include="../branchy/Services/IGitService.cs" Link="Services/IGitService.cs" />
+    <Compile Include="../branchy/Services/GitService.cs" Link="Services/GitService.cs" />
+    <Compile Include="../branchy/Services/GitRepositoryNotFoundException.cs" Link="Services/GitRepositoryNotFoundException.cs" />
+    <Compile Include="../branchy/Services/CommitMessageNormalizer.cs" Link="Services/CommitMessageNormalizer.cs" />
+    <Compile Include="../branchy/Services/WorkingTreeFileService.cs" Link="Services/WorkingTreeFileService.cs" />
+  </ItemGroup>
+</Project>

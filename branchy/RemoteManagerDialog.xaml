@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Branchy.RemoteManagerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:Branchy.Models"
+    x:Uid="RemoteManagerDialog"
+    CornerRadius="8"
+    DefaultButton="None">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">980</x:Double>
+    </ContentDialog.Resources>
+
+    <Grid Width="900" Height="520" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <InfoBar
+            x:Uid="RemoteManagerErrorInfoBar"
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+            Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+            Severity="Error" />
+
+        <Grid Grid.Row="1" ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <ListView
+                        HorizontalContentAlignment="Stretch"
+                        ItemsSource="{x:Bind ViewModel.Remotes}"
+                        SelectedItem="{x:Bind ViewModel.SelectedRemote, Mode=TwoWay}"
+                        SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:GitRemote">
+                                <StackPanel Padding="10,7" Spacing="3">
+                                    <TextBlock FontWeight="SemiBold" Text="{x:Bind Name}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="{x:Bind FetchUrl}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackPanel
+                        Margin="24"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="8"
+                        Visibility="{x:Bind ViewModel.HasNoRemotes, Mode=OneWay}">
+                        <SymbolIcon
+                            HorizontalAlignment="Center"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Symbol="World" />
+                        <TextBlock
+                            x:Uid="RemoteManagerEmptyText"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Column="1"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Text="{x:Bind ViewModel.FormTitle, Mode=OneWay}"
+                        Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <TextBox
+                        x:Uid="RemoteNameTextBox"
+                        Grid.Row="1"
+                        Text="{x:Bind ViewModel.RemoteName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        x:Uid="RemoteFetchUrlTextBox"
+                        Grid.Row="2"
+                        Text="{x:Bind ViewModel.FetchUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        x:Uid="RemotePushUrlTextBox"
+                        Grid.Row="3"
+                        Text="{x:Bind ViewModel.PushUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="8">
+                        <Button
+                            x:Uid="SaveRemoteButton"
+                            MinWidth="130"
+                            Click="SaveRemoteButton_Click"
+                            IsEnabled="{x:Bind ViewModel.CanSave, Mode=OneWay}"
+                            Style="{StaticResource AccentButtonStyle}" />
+                        <Button
+                            x:Uid="FetchRemoteButton"
+                            Click="FetchRemoteButton_Click"
+                            IsEnabled="{x:Bind ViewModel.CanFetch, Mode=OneWay}" />
+                        <Button
+                            x:Uid="DeleteRemoteButton"
+                            Click="DeleteRemoteButton_Click"
+                            IsEnabled="{x:Bind ViewModel.CanDelete, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <Border
+                        Grid.Row="5"
+                        Margin="0,4,0,0"
+                        Padding="12"
+                        Background="{ThemeResource SystemFillColorCautionBackgroundBrush}"
+                        CornerRadius="6"
+                        Visibility="{x:Bind ViewModel.IsConfirmingDelete, Mode=OneWay}">
+                        <Grid ColumnSpacing="12" RowSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                x:Uid="RemoteDeleteConfirmationTitle"
+                                FontWeight="SemiBold" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.DeleteConfirmationMessage, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Grid.RowSpan="2"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <Button
+                                    x:Uid="ConfirmDeleteRemoteButton"
+                                    Click="ConfirmDeleteRemoteButton_Click" />
+                                <Button
+                                    x:Uid="CancelDeleteRemoteButton"
+                                    Click="CancelDeleteRemoteButton_Click" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
+            <ProgressRing
+                Width="16"
+                Height="16"
+                IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="3"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            Spacing="8">
+            <Button
+                x:Uid="AddRemoteButton"
+                Click="AddRemoteButton_Click" />
+            <Button
+                x:Uid="CloseRemoteManagerButton"
+                MinWidth="120"
+                Click="CloseRemoteManagerButton_Click" />
+        </StackPanel>
+    </Grid>
+</ContentDialog>

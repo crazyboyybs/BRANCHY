@@ -1,0 +1,23 @@
+* text=auto eol=lf
+*.cs text eol=lf
+*.xaml text eol=lf
+*.csproj text eol=lf
+*.vcxproj text eol=lf
+*.slnx text eol=lf
+*.appxmanifest text eol=lf
+*.manifest text eol=lf
+*.resw text eol=lf
+*.pubxml text eol=lf
+*.json text eol=lf
+*.ps1 text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.rc text eol=lf
+*.def text eol=lf
+*.svg text eol=lf
+*.png binary
+*.ico binary
+*.ttf binary

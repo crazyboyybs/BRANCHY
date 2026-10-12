@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BRANCHY (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "BRANCHY (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

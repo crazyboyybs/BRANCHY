@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Branchy.CloneRepositoryDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Uid="CloneRepositoryDialog"
+    CornerRadius="8"
+    DefaultButton="None">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">720</x:Double>
+    </ContentDialog.Resources>
+
+    <Grid Width="640" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            x:Uid="CloneRepositoryDescription"
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            TextWrapping="Wrap" />
+
+        <TextBox
+            x:Name="RepositorySourceTextBox"
+            x:Uid="CloneRepositorySourceTextBox"
+            Grid.Row="1"
+            Text="{x:Bind ViewModel.RepositorySource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Grid Grid.Row="2" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox
+                x:Uid="CloneDestinationParentTextBox"
+                Text="{x:Bind ViewModel.DestinationParent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button
+                x:Uid="BrowseCloneDestinationButton"
+                Grid.Column="1"
+                MinWidth="96"
+                Click="BrowseCloneDestinationButton_Click"
+                IsEnabled="{x:Bind ViewModel.CanCancel, Mode=OneWay}" />
+        </Grid>
+
+        <TextBox
+            x:Uid="CloneDirectoryNameTextBox"
+            Grid.Row="3"
+            Text="{x:Bind ViewModel.DirectoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Border
+            Grid.Row="4"
+            Padding="12,10"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <SymbolIcon
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                    Symbol="Folder" />
+                <StackPanel Grid.Column="1" Spacing="2">
+                    <TextBlock
+                        x:Uid="CloneDestinationPreviewTitle"
+                        FontWeight="SemiBold" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind ViewModel.DestinationPreview, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis"
+                        ToolTipService.ToolTip="{x:Bind ViewModel.DestinationPreview, Mode=OneWay}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="5" Spacing="8">
+            <InfoBar
+                x:Uid="CloneRepositoryErrorInfoBar"
+                IsClosable="False"
+                IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                Severity="Error" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressRing
+                    Width="18"
+                    Height="18"
+                    IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="6" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Uid="CloneRepositoryConfirmButton"
+                HorizontalAlignment="Stretch"
+                Click="CloneRepositoryConfirmButton_Click"
+                CornerRadius="4"
+                IsEnabled="{x:Bind ViewModel.CanClone, Mode=OneWay}"
+                Style="{StaticResource AccentButtonStyle}" />
+            <Button
+                x:Uid="CancelCloneRepositoryButton"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                Click="CancelCloneRepositoryButton_Click"
+                CornerRadius="4"
+                IsEnabled="{x:Bind ViewModel.CanCancel, Mode=OneWay}" />
+        </Grid>
+    </Grid>
+</ContentDialog>

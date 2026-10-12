@@ -1,0 +1,5 @@
+#pragma once
+
+#define IDI_BRANCHY_DARK 101
+#define IDS_OPEN_BRANCHY 102
+#define IDI_BRANCHY_LIGHT 103

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AppDisplayName" xml:space="preserve"><value>BRANCHY</value></data>
+    <data name="AppDescription" xml:space="preserve"><value>A native BRANCHY WinUI 3 interface for Git</value></data>
+    <data name="PublisherDisplayName" xml:space="preserve"><value>BRANCHY</value></data>
+    <data name="WindowTitle" xml:space="preserve"><value>BRANCHY</value></data>
+    <data name="AppTitleBar.Title" xml:space="preserve"><value>BRANCHY</value></data>
+    <data name="TitleBar_NoRepository" xml:space="preserve"><value>No repository open</value></data>
+    <data name="OpenRepositoryButton.Label" xml:space="preserve"><value>Open</value></data>
+    <data name="OpenRepositoryButton.ToolTipService.ToolTip" xml:space="preserve"><value>Open an existing repository</value></data>
+    <data name="RefreshButton.Label" xml:space="preserve"><value>Refresh</value></data>
+    <data name="RefreshButton.ToolTipService.ToolTip" xml:space="preserve"><value>Scan the repository again</value></data>
+    <data name="FetchButton.Label" xml:space="preserve"><value>Fetch</value></data>
+    <data name="FetchButton.ToolTipService.ToolTip" xml:space="preserve"><value>Fetch changes from remotes</value></data>
+    <data name="PullButton.Label" xml:space="preserve"><value>Pull</value></data>
+    <data name="PullButton.ToolTipService.ToolTip" xml:space="preserve"><value>Fast-forward the current branch from its upstream</value></data>
+    <data name="PushButton.Label" xml:space="preserve"><value>Push</value></data>
+    <data name="PushButton.ToolTipService.ToolTip" xml:space="preserve"><value>Push commits to the configured remote</value></data>
+    <data name="ErrorInfoBar.Title" xml:space="preserve"><value>Git encountered a problem</value></data>
+    <data name="RepositoryEmptyTitle.Text" xml:space="preserve"><value>Start by choosing a repository</value></data>
+    <data name="RepositoryEmptyDescription.Text" xml:space="preserve"><value>Open a Git folder to review changes, stage files, and create commits.</value></data>
+    <data name="BrowseRepositoryButton.Content" xml:space="preserve"><value>Choose repository</value></data>
+    <data name="InitializeRepositoryTitle.Text" xml:space="preserve"><value>This folder is not a repository yet</value></data>
+    <data name="InitializeRepositoryDescription.Text" xml:space="preserve"><value>You can initialize Git here and start tracking the files in this folder.</value></data>
+    <data name="InitializeRepositoryButton.Content" xml:space="preserve"><value>Create repository here</value></data>
+    <data name="BrowseOtherRepositoryButton.Content" xml:space="preserve"><value>Choose another folder</value></data>
+    <data name="ChangesTitle.Text" xml:space="preserve"><value>Changes</value></data>
+    <data name="UnstagedHeader.Text" xml:space="preserve"><value>Ready to stage</value></data>
+    <data name="StagedHeader.Text" xml:space="preserve"><value>Ready to commit</value></data>
+    <data name="EmptyUnstaged.Text" xml:space="preserve"><value>No pending changes</value></data>
+    <data name="EmptyStaged.Text" xml:space="preserve"><value>No staged files</value></data>
+    <data name="StageFileButton.ToolTipService.ToolTip" xml:space="preserve"><value>Stage this file</value></data>
+    <data name="UnstageFileButton.ToolTipService.ToolTip" xml:space="preserve"><value>Remove this file from the commit</value></data>
+    <data name="DiffTitle.Text" xml:space="preserve"><value>Change preview</value></data>
+    <data name="NoSelection.Text" xml:space="preserve"><value>Select a file to inspect its diff.</value></data>
+    <data name="CommitTitle.Text" xml:space="preserve"><value>Create commit</value></data>
+    <data name="CommitMessageBox.PlaceholderText" xml:space="preserve"><value>Explain what changed...</value></data>
+    <data name="StageSelection_SelectAll" xml:space="preserve"><value>Select all</value></data>
+    <data name="StageSelection_ClearAll" xml:space="preserve"><value>Clear selection</value></data>
+    <data name="CommitButton.Content" xml:space="preserve"><value>Commit</value></data>
+    <data name="AmendButton.Content" xml:space="preserve"><value>Amend</value></data>
+    <data name="AmendButton.ToolTipService.ToolTip" xml:space="preserve"><value>Add the staged changes to an existing commit</value></data>
+    <data name="AmendCommitDialog.Title" xml:space="preserve"><value>Amend commit</value></data>
+    <data name="ApplyAmendButton.Content" xml:space="preserve"><value>Apply changes</value></data>
+    <data name="CancelAmendButton.Content" xml:space="preserve"><value>Cancel</value></data>
+    <data name="AmendCommitDescription.Text" xml:space="preserve"><value>Select the commit that will receive the staged changes and review its message.</value></data>
+    <data name="AmendCommitMessageBox.Header" xml:space="preserve"><value>Commit message</value></data>
+    <data name="AmendCommitMessageBox.PlaceholderText" xml:space="preserve"><value>Describe the commit changes...</value></data>
+    <data name="AmendHistoryRewriteInfoBar.Title" xml:space="preserve"><value>History may be rewritten</value></data>
+    <data name="AmendHistoryRewriteInfoBar.Message" xml:space="preserve"><value>Selecting an older commit gives every later commit a new identifier. Avoid changing history that has already been shared.</value></data>
+    <data name="AmendCommitErrorInfoBar.Title" xml:space="preserve"><value>The commits could not be loaded</value></data>
+    <data name="Status_OpenRepository" xml:space="preserve"><value>Open a repository to get started.</value></data>
+    <data name="Status_LoadingRepository" xml:space="preserve"><value>Opening repository...</value></data>
+    <data name="Status_RepositoryNotInitialized" xml:space="preserve"><value>The folder can be initialized as a Git repository.</value></data>
+    <data name="Status_InitializingRepository" xml:space="preserve"><value>Creating repository...</value></data>
+    <data name="Status_RepositoryInitialized" xml:space="preserve"><value>Repository created in this folder.</value></data>
+    <data name="Status_Refreshing" xml:space="preserve"><value>Refreshing changes...</value></data>
+    <data name="Status_ReadySummary" xml:space="preserve"><value>{0} ready to stage · {1} ready to commit</value></data>
+    <data name="Status_StagingFile" xml:space="preserve"><value>Staging {0}...</value></data>
+    <data name="Status_UnstagingFile" xml:space="preserve"><value>Removing {0} from the commit...</value></data>
+    <data name="Status_StagingAll" xml:space="preserve"><value>Staging all changes...</value></data>
+    <data name="Status_UnstagingAll" xml:space="preserve"><value>Removing all changes from the selection...</value></data>
+    <data name="Status_Committing" xml:space="preserve"><value>Creating commit...</value></data>
+    <data name="Status_CommitCreated" xml:space="preserve"><value>Commit created successfully.</value></data>
+    <data name="Status_Amending" xml:space="preserve"><value>Applying changes to the commit...</value></data>
+    <data name="Status_AmendComplete" xml:space="preserve"><value>Commit updated successfully.</value></data>
+    <data name="Status_Fetching" xml:space="preserve"><value>Fetching changes from remotes...</value></data>
+    <data name="Status_FetchComplete" xml:space="preserve"><value>Fetch completed.</value></data>
+    <data name="Status_Pulling" xml:space="preserve"><value>Updating the current branch...</value></data>
+    <data name="Status_PullComplete" xml:space="preserve"><value>Current branch fast-forwarded.</value></data>
+    <data name="Status_Pushing" xml:space="preserve"><value>Pushing commits...</value></data>
+    <data name="Status_PushComplete" xml:space="preserve"><value>Push completed.</value></data>
+    <data name="Status_OperationFailed" xml:space="preserve"><value>The operation could not be completed.</value></data>
+    <data name="Error_NotGitRepository" xml:space="preserve"><value>The selected folder is not part of a Git repository.</value></data>
+    <data name="Error_GitNotFound" xml:space="preserve"><value>The Git executable could not be found.</value></data>
+    <data name="Error_GitCommandFailed" xml:space="preserve"><value>The Git command failed ({0}).&#x0a;{1}</value></data>
+    <data name="Error_CommitMessageRequired" xml:space="preserve"><value>Enter a message before creating the commit.</value></data>
+    <data name="Error_NoCommitsForAmend" xml:space="preserve"><value>No commit is available to amend.</value></data>
+    <data name="Error_AmendCommitNotInHistory" xml:space="preserve"><value>The selected commit is no longer part of the current history.</value></data>
+    <data name="Error_NoStagedChangesForAmend" xml:space="preserve"><value>There are no staged changes to apply to the commit.</value></data>
+    <data name="Error_AmendPatchNotApplicable" xml:space="preserve"><value>The staged changes cannot be safely applied to the selected commit. The repository was not changed.&#x0a;{0}</value></data>
+    <data name="Error_AmendDescendantNotApplicable" xml:space="preserve"><value>A later commit conflicts with the staged changes. The repository was not changed and the changes remain staged.&#x0a;{0}</value></data>
+    <data name="Error_AmendMergeHistoryUnsupported" xml:space="preserve"><value>BRANCHY cannot yet amend across merge commits. Select a commit after the most recent merge.</value></data>
+    <data name="Error_AmendHeadChanged" xml:space="preserve"><value>HEAD changed during the amend. The rewritten history was not applied, preventing external changes from being overwritten.</value></data>
+    <data name="Error_AmendMetadataUnavailable" xml:space="preserve"><value>The selected commit metadata could not be read.</value></data>
+    <data name="Diff_NoText" xml:space="preserve"><value>There is no text diff to display.</value></data>
+    <data name="Branch_Detached" xml:space="preserve"><value>Detached HEAD</value></data>
+    <data name="BranchManagerButton.ToolTipService.ToolTip" xml:space="preserve"><value>Switch branch</value></data>
+    <data name="BranchManagerDialog.Title" xml:space="preserve"><value>Branches</value></data>
+    <data name="CloseBranchDialogButton.Content" xml:space="preserve"><value>Close</value></data>
+    <data name="BranchErrorInfoBar.Title" xml:space="preserve"><value>The branch could not be changed</value></data>
+    <data name="SelectedBranchTitle.Text" xml:space="preserve"><value>Selected branch</value></data>
+    <data name="RenameBranchTextBox.Header" xml:space="preserve"><value>Name</value></data>
+    <data name="RenameBranchTextBox.PlaceholderText" xml:space="preserve"><value>New branch name</value></data>
+    <data name="RenameBranchButton.Content" xml:space="preserve"><value>Rename</value></data>
+    <data name="SwitchBranchButton.Content" xml:space="preserve"><value>Switch to this branch</value></data>
+    <data name="DeleteBranchButton.Content" xml:space="preserve"><value>Delete branch</value></data>
+    <data name="DeleteBranchHint.Text" xml:space="preserve"><value>Deletion is safe: Git refuses to delete a branch that still has unmerged commits.</value></data>
+    <data name="NewBranchTextBox.PlaceholderText" xml:space="preserve"><value>New branch name</value></data>
+    <data name="CreateBranchButton.Content" xml:space="preserve"><value>Create and switch</value></data>
+    <data name="Status_SwitchingBranch" xml:space="preserve"><value>Switching branches...</value></data>
+    <data name="Status_BranchSwitched" xml:space="preserve"><value>Now on {0}.</value></data>
+    <data name="Status_CreatingBranch" xml:space="preserve"><value>Creating branch...</value></data>
+    <data name="Status_BranchCreated" xml:space="preserve"><value>Branch {0} created.</value></data>
+    <data name="Status_RenamingBranch" xml:space="preserve"><value>Renaming branch...</value></data>
+    <data name="Status_BranchRenamed" xml:space="preserve"><value>Branch renamed to {0}.</value></data>
+    <data name="Status_DeletingBranch" xml:space="preserve"><value>Deleting branch...</value></data>
+    <data name="Status_BranchDeleted" xml:space="preserve"><value>Branch {0} deleted.</value></data>
+    <data name="Error_BranchNameRequired" xml:space="preserve"><value>Enter a branch name.</value></data>
+    <data name="Error_InvalidBranchName" xml:space="preserve"><value>“{0}” is not a valid branch name.</value></data>
+    <data name="Error_SelectBranch" xml:space="preserve"><value>Select a branch first.</value></data>
+    <data name="SettingsButton.Label" xml:space="preserve"><value>Settings</value></data>
+    <data name="SettingsButton.ToolTipService.ToolTip" xml:space="preserve"><value>Application settings</value></data>
+    <data name="RepositoryOptionsButton.Label" xml:space="preserve"><value>Edit .gitignore</value></data>
+    <data name="RepositoryOptionsButton.ToolTipService.ToolTip" xml:space="preserve"><value>Choose included files and edit .gitignore</value></data>
+    <data name="SettingsRestartInfoBar.Title" xml:space="preserve"><value>Language saved</value></data>
+    <data name="SettingsRestartInfoBar.Message" xml:space="preserve"><value>Close and reopen the application to apply the new language to the entire interface.</value></data>
+    <data name="LanguageSettingTitle.Text" xml:space="preserve"><value>Language</value></data>
+    <data name="LanguageSettingDescription.Text" xml:space="preserve"><value>Choose the language used by application text and messages.</value></data>
+    <data name="LanguageSystemOption.Content" xml:space="preserve"><value>Use Windows language</value></data>
+    <data name="LanguagePortugueseOption.Content" xml:space="preserve"><value>Português (Brasil)</value></data>
+    <data name="LanguageEnglishOption.Content" xml:space="preserve"><value>English (United States)</value></data>
+    <data name="ThemeSettingTitle.Text" xml:space="preserve"><value>Theme</value></data>
+    <data name="ThemeSettingDescription.Text" xml:space="preserve"><value>Follow Windows or keep the application light or dark.</value></data>
+    <data name="ThemeSystemOption.Content" xml:space="preserve"><value>Use Windows theme</value></data>
+    <data name="ThemeLightOption.Content" xml:space="preserve"><value>Light</value></data>
+    <data name="ThemeDarkOption.Content" xml:space="preserve"><value>Dark</value></data>
+    <data name="LayoutSettingTitle.Text" xml:space="preserve"><value>Layout</value></data>
+    <data name="LayoutSettingDescription.Text" xml:space="preserve"><value>Control how much space the main panels occupy.</value></data>
+    <data name="LayoutComfortableOption.Content" xml:space="preserve"><value>Comfortable</value></data>
+    <data name="LayoutCompactOption.Content" xml:space="preserve"><value>Compact</value></data>
+    <data name="SaveSettingsButton.Content" xml:space="preserve"><value>Save</value></data>
+    <data name="CloseSettingsButton.Content" xml:space="preserve"><value>Close</value></data>
+    <data name="RepositoryOptionsDialog.Title" xml:space="preserve"><value>Edit .gitignore</value></data>
+    <data name="RepositoryOptionsErrorInfoBar.Title" xml:space="preserve"><value>The operation could not be completed</value></data>
+    <data name="GitIgnoreDescription.Text" xml:space="preserve"><value>Select the files that should be part of the repository. The application preserves your own rules and updates only a marked section in the root .gitignore.</value></data>
+    <data name="SelectAllRepositoryFilesButton.Content" xml:space="preserve"><value>Include all</value></data>
+    <data name="ClearRepositoryFilesButton.Content" xml:space="preserve"><value>Tracked only</value></data>
+    <data name="TrackedFilesHint.Text" xml:space="preserve"><value>Already tracked files remain selected. .gitignore cannot remove files that are already in the Git index.</value></data>
+    <data name="SaveGitIgnoreButton.Content" xml:space="preserve"><value>Update .gitignore</value></data>
+    <data name="CloseRepositoryOptionsButton.Content" xml:space="preserve"><value>Close</value></data>
+    <data name="RepositoryFile_Tracked" xml:space="preserve"><value>Tracked</value></data>
+    <data name="RepositoryFile_Included" xml:space="preserve"><value>Included</value></data>
+    <data name="RepositoryFile_Ignored" xml:space="preserve"><value>Ignored</value></data>
+    <data name="RepositoryFiles_SelectionSummary" xml:space="preserve"><value>{0} included · {1} ignored · {2} tracked</value></data>
+    <data name="RepositoryOptions_Loading" xml:space="preserve"><value>Reading repository files...</value></data>
+    <data name="RepositoryOptions_Ready" xml:space="preserve"><value>Repository options are ready.</value></data>
+    <data name="RepositoryOptions_SavingIgnore" xml:space="preserve"><value>Updating .gitignore...</value></data>
+    <data name="RepositoryOptions_IgnoreSaved" xml:space="preserve"><value>.gitignore was updated. Review and stage it to include it in the next commit.</value></data>
+    <data name="ArchiveFileType" xml:space="preserve"><value>ZIP archive</value></data>
+    <data name="Error_ArchiveFolderMissing" xml:space="preserve"><value>The selected archive folder is no longer available.</value></data>
+    <data name="Error_MainWindowUnavailable" xml:space="preserve"><value>The main window is unavailable for displaying the dialog.</value></data>
+    <data name="CloneRepositoryButton.Label" xml:space="preserve"><value>Clone</value></data>
+    <data name="CloneRepositoryButton.ToolTipService.ToolTip" xml:space="preserve"><value>Clone a remote or local repository</value></data>
+    <data name="CloneEmptyRepositoryButton.Content" xml:space="preserve"><value>Clone repository</value></data>
+    <data name="CloneSuggestedRepositoryButton.Content" xml:space="preserve"><value>Clone elsewhere</value></data>
+    <data name="CloneRepositoryDialog.Title" xml:space="preserve"><value>Clone repository</value></data>
+    <data name="CloneRepositoryDescription.Text" xml:space="preserve"><value>Enter a repository URL or path and choose where the new copy will be created.</value></data>
+    <data name="CloneRepositorySourceTextBox.Header" xml:space="preserve"><value>Source repository</value></data>
+    <data name="CloneRepositorySourceTextBox.PlaceholderText" xml:space="preserve"><value>https://github.com/organization/project.git</value></data>
+    <data name="CloneDestinationParentTextBox.Header" xml:space="preserve"><value>Parent folder</value></data>
+    <data name="CloneDestinationParentTextBox.PlaceholderText" xml:space="preserve"><value>Choose or enter an existing folder</value></data>
+    <data name="BrowseCloneDestinationButton.Content" xml:space="preserve"><value>Browse</value></data>
+    <data name="CloneDirectoryNameTextBox.Header" xml:space="preserve"><value>New folder name</value></data>
+    <data name="CloneDirectoryNameTextBox.PlaceholderText" xml:space="preserve"><value>project</value></data>
+    <data name="CloneDestinationPreviewTitle.Text" xml:space="preserve"><value>Complete destination</value></data>
+    <data name="CloneRepositoryErrorInfoBar.Title" xml:space="preserve"><value>The repository could not be cloned</value></data>
+    <data name="CloneRepositoryConfirmButton.Content" xml:space="preserve"><value>Clone and open</value></data>
+    <data name="CancelCloneRepositoryButton.Content" xml:space="preserve"><value>Cancel</value></data>
+    <data name="Clone_Ready" xml:space="preserve"><value>Enter the source and confirm the destination.</value></data>
+    <data name="Clone_Cloning" xml:space="preserve"><value>Cloning the repository and preparing the working tree...</value></data>
+    <data name="Clone_Complete" xml:space="preserve"><value>Repository cloned. Opening the new copy...</value></data>
+    <data name="Clone_Failed" xml:space="preserve"><value>The clone did not complete.</value></data>
+    <data name="Error_CloneFieldsRequired" xml:space="preserve"><value>Enter the source, destination folder, and new folder name.</value></data>
+    <data name="Error_CloneSourceRequired" xml:space="preserve"><value>Enter the source repository URL or path.</value></data>
+    <data name="Error_CloneDestinationMissing" xml:space="preserve"><value>The clone parent folder no longer exists.</value></data>
+    <data name="Error_CloneDestinationNotEmpty" xml:space="preserve"><value>The destination already exists and contains files. Choose another name to avoid overwriting data.</value></data>
+    <data name="Error_CloneDirectoryNameInvalid" xml:space="preserve"><value>The new folder name is invalid.</value></data>
+    <data name="HistoryButton.Label" xml:space="preserve"><value>History</value></data>
+    <data name="HistoryButton.ToolTipService.ToolTip" xml:space="preserve"><value>Inspect commits, references, and changes</value></data>
+    <data name="HistoryDialog.Title" xml:space="preserve"><value>Repository history</value></data>
+    <data name="HistorySearchBox.PlaceholderText" xml:space="preserve"><value>Search commits</value></data>
+    <data name="HistorySearchBox.AutomationProperties.Name" xml:space="preserve"><value>Search history</value></data>
+    <data name="HistorySearchScopeComboBox.ToolTipService.ToolTip" xml:space="preserve"><value>Choose where to search</value></data>
+    <data name="HistorySearchScopeComboBox.AutomationProperties.Name" xml:space="preserve"><value>Filter search by</value></data>
+    <data name="HistorySearchScopeAll.Content" xml:space="preserve"><value>Everything</value></data>
+    <data name="HistorySearchScopeMessage.Content" xml:space="preserve"><value>Commit message</value></data>
+    <data name="HistorySearchScopeDiff.Content" xml:space="preserve"><value>Diff content</value></data>
+    <data name="HistorySearchScopeBranch.Content" xml:space="preserve"><value>Branch name</value></data>
+    <data name="HistoryTimelineTitle.Text" xml:space="preserve"><value>Commits</value></data>
+    <data name="HistoryMergeBadge.ToolTipService.ToolTip" xml:space="preserve"><value>Merge commit</value></data>
+    <data name="HistoryEmptyText.Text" xml:space="preserve"><value>This repository does not have any commits yet.</value></data>
+    <data name="HistorySearchNoResultsText.Text" xml:space="preserve"><value>No commits match this search.</value></data>
+    <data name="HistoryErrorInfoBar.Title" xml:space="preserve"><value>The history could not be loaded</value></data>
+    <data name="HistoryFilesTitle.Text" xml:space="preserve"><value>Changed files</value></data>
+    <data name="HistoryNoFilesText.Text" xml:space="preserve"><value>No changed files.</value></data>
+    <data name="HistoryNoDiffText.Text" xml:space="preserve"><value>No textual difference is available for this commit.</value></data>
+    <data name="ExportHistoryCommitButton.Content" xml:space="preserve"><value>Export this version</value></data>
+    <data name="CloseHistoryDialogButton.Content" xml:space="preserve"><value>Close</value></data>
+    <data name="History_Loading" xml:space="preserve"><value>Loading history...</value></data>
+    <data name="History_Loaded" xml:space="preserve"><value>{0} commits loaded.</value></data>
+    <data name="History_Searching" xml:space="preserve"><value>Searching history...</value></data>
+    <data name="History_SearchResults" xml:space="preserve"><value>{0} commits found.</value></data>
+    <data name="History_SearchFailed" xml:space="preserve"><value>History search could not be completed.</value></data>
+    <data name="History_Empty" xml:space="preserve"><value>The history is empty.</value></data>
+    <data name="History_Failed" xml:space="preserve"><value>The commits could not be loaded.</value></data>
+    <data name="History_LoadingDetails" xml:space="preserve"><value>Loading commit details...</value></data>
+    <data name="History_CommitLoaded" xml:space="preserve"><value>{0} files changed in this commit.</value></data>
+    <data name="History_DetailsFailed" xml:space="preserve"><value>The commit details could not be loaded.</value></data>
+    <data name="History_ExportingCommit" xml:space="preserve"><value>Exporting the complete commit version...</value></data>
+    <data name="History_CommitExported" xml:space="preserve"><value>Complete version exported to {0}</value></data>
+    <data name="History_RootCommit" xml:space="preserve"><value>Root commit</value></data>
+    <data name="History_ParentCommit" xml:space="preserve"><value>Parent {0}</value></data>
+    <data name="History_MergeParents" xml:space="preserve"><value>Merge of {0} parents</value></data>
+    <data name="RemoteManagerButton.Label" xml:space="preserve"><value>Remotes</value></data>
+    <data name="RemoteManagerButton.ToolTipService.ToolTip" xml:space="preserve"><value>Manage remote repositories</value></data>
+    <data name="PartialStageFileButton.ToolTipService.ToolTip" xml:space="preserve"><value>Stage only selected hunks</value></data>
+    <data name="PartialStageFileButton.AutomationProperties.Name" xml:space="preserve"><value>Stage partially</value></data>
+    <data name="DiscardFileButton.ToolTipService.ToolTip" xml:space="preserve"><value>Discard changes or restore the file</value></data>
+    <data name="DiscardFileButton.AutomationProperties.Name" xml:space="preserve"><value>Discard or restore</value></data>
+    <data name="RemoteManagerDialog.Title" xml:space="preserve"><value>Remotes</value></data>
+    <data name="RemoteManagerErrorInfoBar.Title" xml:space="preserve"><value>The operation could not be completed</value></data>
+    <data name="RemoteManagerEmptyText.Text" xml:space="preserve"><value>No remotes are configured. Add one to fetch, pull, or push commits.</value></data>
+    <data name="RemoteNameTextBox.Header" xml:space="preserve"><value>Name</value></data>
+    <data name="RemoteNameTextBox.PlaceholderText" xml:space="preserve"><value>origin</value></data>
+    <data name="RemoteFetchUrlTextBox.Header" xml:space="preserve"><value>Fetch URL</value></data>
+    <data name="RemoteFetchUrlTextBox.PlaceholderText" xml:space="preserve"><value>https://github.com/account/repository.git</value></data>
+    <data name="RemotePushUrlTextBox.Header" xml:space="preserve"><value>Push URL (optional)</value></data>
+    <data name="RemotePushUrlTextBox.PlaceholderText" xml:space="preserve"><value>Leave empty to use the same URL</value></data>
+    <data name="SaveRemoteButton.Content" xml:space="preserve"><value>Save remote</value></data>
+    <data name="FetchRemoteButton.Content" xml:space="preserve"><value>Fetch</value></data>
+    <data name="DeleteRemoteButton.Content" xml:space="preserve"><value>Remove</value></data>
+    <data name="RemoteDeleteConfirmationTitle.Text" xml:space="preserve"><value>Remove remote?</value></data>
+    <data name="ConfirmDeleteRemoteButton.Content" xml:space="preserve"><value>Remove</value></data>
+    <data name="CancelDeleteRemoteButton.Content" xml:space="preserve"><value>Cancel</value></data>
+    <data name="AddRemoteButton.Content" xml:space="preserve"><value>Add remote</value></data>
+    <data name="CloseRemoteManagerButton.Content" xml:space="preserve"><value>Close</value></data>
+    <data name="Remotes_Loading" xml:space="preserve"><value>Loading remotes...</value></data>
+    <data name="Remotes_Loaded" xml:space="preserve"><value>{0} remotes loaded.</value></data>
+    <data name="Remotes_Empty" xml:space="preserve"><value>No remotes are configured.</value></data>
+    <data name="Remotes_EnterDetails" xml:space="preserve"><value>Enter the new remote details.</value></data>
+    <data name="Remotes_NewRemoteTitle" xml:space="preserve"><value>New remote</value></data>
+    <data name="Remotes_SelectedRemoteTitle" xml:space="preserve"><value>Selected remote</value></data>
+    <data name="Remotes_Adding" xml:space="preserve"><value>Adding remote...</value></data>
+    <data name="Remotes_Saving" xml:space="preserve"><value>Saving remote...</value></data>
+    <data name="Remotes_Saved" xml:space="preserve"><value>Remote {0} saved.</value></data>
+    <data name="Remotes_Fetching" xml:space="preserve"><value>Fetching changes from {0}...</value></data>
+    <data name="Remotes_Fetched" xml:space="preserve"><value>Fetch from {0} completed.</value></data>
+    <data name="Remotes_Removing" xml:space="preserve"><value>Removing remote {0}...</value></data>
+    <data name="Remotes_Removed" xml:space="preserve"><value>Remote {0} removed.</value></data>
+    <data name="Remotes_DeleteConfirmation" xml:space="preserve"><value>Remote {0} and its local remote-tracking references will be removed. The remote repository will not be deleted.</value></data>
+    <data name="Error_RemoteNameRequired" xml:space="preserve"><value>Enter a valid remote name without spaces.</value></data>
+    <data name="Error_InvalidRemoteName" xml:space="preserve"><value>{0} is not a valid remote name.</value></data>
+    <data name="Error_RemoteUrlRequired" xml:space="preserve"><value>Enter a valid remote URL.</value></data>
+    <data name="PartialStageDialog.Title" xml:space="preserve"><value>Partial staging</value></data>
+    <data name="PartialStageErrorInfoBar.Title" xml:space="preserve"><value>The hunks could not be staged</value></data>
+    <data name="SelectAllHunksButton.Content" xml:space="preserve"><value>Select all</value></data>
+    <data name="ClearHunkSelectionButton.Content" xml:space="preserve"><value>Clear selection</value></data>
+    <data name="PartialStageEmptyText.Text" xml:space="preserve"><value>No independent textual hunks are available for this file.</value></data>
+    <data name="ApplySelectedHunksButton.Content" xml:space="preserve"><value>Stage selected</value></data>
+    <data name="ClosePartialStageButton.Content" xml:space="preserve"><value>Close</value></data>
+    <data name="PartialStage_Loading" xml:space="preserve"><value>Reading change hunks...</value></data>
+    <data name="PartialStage_Loaded" xml:space="preserve"><value>{0} hunks available.</value></data>
+    <data name="PartialStage_Failed" xml:space="preserve"><value>The change hunks could not be read.</value></data>
+    <data name="PartialStage_SelectionSummary" xml:space="preserve"><value>{0} of {1} hunks selected</value></data>
+    <data name="PartialStage_Applying" xml:space="preserve"><value>Staging selected hunks...</value></data>
+    <data name="PartialStage_Applied" xml:space="preserve"><value>Selected hunks staged.</value></data>
+    <data name="Error_PartialStageUnavailable" xml:space="preserve"><value>This file has no textual hunks that can be staged separately.</value></data>
+    <data name="Error_PartialStagePatchInvalid" xml:space="preserve"><value>The selected patch is invalid and was not applied.</value></data>
+    <data name="DiscardChangesDialog.Title" xml:space="preserve"><value>Confirm change</value></data>
+    <data name="CancelDiscardChangesButton.Content" xml:space="preserve"><value>Cancel</value></data>
+    <data name="DiscardChanges_RestoreTitle" xml:space="preserve"><value>Restore file?</value></data>
+    <data name="DiscardChanges_RestoreMessage" xml:space="preserve"><value>The deleted file will be restored to the version currently staged in the index.</value></data>
+    <data name="DiscardChanges_RestoreAction" xml:space="preserve"><value>Restore file</value></data>
+    <data name="DiscardChanges_DiscardTitle" xml:space="preserve"><value>Discard changes?</value></data>
+    <data name="DiscardChanges_DiscardMessage" xml:space="preserve"><value>Unstaged changes in this file will be replaced by the index version. Git cannot undo this operation.</value></data>
+    <data name="DiscardChanges_DiscardAction" xml:space="preserve"><value>Discard changes</value></data>
+    <data name="Status_RestoringFile" xml:space="preserve"><value>Restoring {0}...</value></data>
+    <data name="Status_FileRestored" xml:space="preserve"><value>{0} was restored.</value></data>
+    <data name="Status_DiscardingChanges" xml:space="preserve"><value>Discarding changes in {0}...</value></data>
+    <data name="Status_ChangesDiscarded" xml:space="preserve"><value>Changes in {0} were discarded.</value></data>
+    <data name="MergeBranchButton.Content" xml:space="preserve"><value>Merge into current branch</value></data>
+    <data name="MergeBranchButton.ToolTipService.ToolTip" xml:space="preserve"><value>Merge the selected branch into the current branch</value></data>
+    <data name="ConflictInfoBar.Title" xml:space="preserve"><value>Conflicts need to be resolved</value></data>
+    <data name="Conflict_Summary" xml:space="preserve"><value>{0} conflict(s). Resolve the markers and stage the files to continue.</value></data>
+    <data name="ConflictBadgeText.Text" xml:space="preserve"><value>Conflict</value></data>
+    <data name="MergeConfirmation_Title" xml:space="preserve"><value>Confirm merge</value></data>
+    <data name="MergeConfirmation_Heading" xml:space="preserve"><value>Merge {0}?</value></data>
+    <data name="MergeConfirmation_Message" xml:space="preserve"><value>Commits from {0} will be integrated into the current branch {1}. If conflicts occur, Git will preserve the intermediate state for resolution.</value></data>
+    <data name="MergeConfirmation_Action" xml:space="preserve"><value>Merge</value></data>
+    <data name="CancelOperationButton.Content" xml:space="preserve"><value>Cancel</value></data>
+    <data name="Status_MergingBranch" xml:space="preserve"><value>Merging {0}...</value></data>
+    <data name="Status_MergeComplete" xml:space="preserve"><value>Merge of {0} completed.</value></data>
+    <data name="Status_MergeConflicts" xml:space="preserve"><value>The merge stopped with conflicts in {0} file(s).</value></data>
+    <data name="RevertHistoryCommitButton.Content" xml:space="preserve"><value>Revert commit</value></data>
+    <data name="RevertHistoryCommitButton.ToolTipService.ToolTip" xml:space="preserve"><value>Create a commit that undoes the selected commit</value></data>
+    <data name="RevertConfirmation_Title" xml:space="preserve"><value>Confirm revert</value></data>
+    <data name="RevertConfirmation_Heading" xml:space="preserve"><value>Revert commit {0}?</value></data>
+    <data name="RevertConfirmation_Message" xml:space="preserve"><value>A new commit will be created to undo the selected changes. Existing history will not be deleted.</value></data>
+    <data name="RevertConfirmation_Detail" xml:space="preserve"><value>{0} — {1}</value></data>
+    <data name="RevertConfirmation_Action" xml:space="preserve"><value>Revert commit</value></data>
+    <data name="Status_RevertingCommit" xml:space="preserve"><value>Reverting commit {0}...</value></data>
+    <data name="Status_RevertComplete" xml:space="preserve"><value>Commit {0} reverted.</value></data>
+    <data name="Status_RevertConflicts" xml:space="preserve"><value>The revert stopped with conflicts in {0} file(s).</value></data>
+    <data name="TagManagerButton.Label" xml:space="preserve"><value>Tags</value></data>
+    <data name="TagManagerButton.ToolTipService.ToolTip" xml:space="preserve"><value>Manage local tags</value></data>
+    <data name="TagManagerDialog.Title" xml:space="preserve"><value>Tags</value></data>
+    <data name="TagManagerErrorInfoBar.Title" xml:space="preserve"><value>The operation could not be completed</value></data>
+    <data name="TagManagerEmptyText.Text" xml:space="preserve"><value>No local tags have been created.</value></data>
+    <data name="AnnotatedTagBadge.Text" xml:space="preserve"><value>Annotated</value></data>
+    <data name="CreateTagTitle.Text" xml:space="preserve"><value>Create tag</value></data>
+    <data name="TagNameTextBox.Header" xml:space="preserve"><value>Name</value></data>
+    <data name="TagNameTextBox.PlaceholderText" xml:space="preserve"><value>v1.0.0</value></data>
+    <data name="TagTargetTextBox.Header" xml:space="preserve"><value>Commit or reference</value></data>
+    <data name="TagTargetTextBox.PlaceholderText" xml:space="preserve"><value>HEAD</value></data>
+    <data name="TagMessageTextBox.Header" xml:space="preserve"><value>Tag message (optional)</value></data>
+    <data name="TagMessageHint.Text" xml:space="preserve"><value>With a message, BRANCHY creates an annotated tag. Without one, it creates a lightweight tag.</value></data>
+    <data name="CreateTagButton.Content" xml:space="preserve"><value>Create tag</value></data>
+    <data name="DeleteTagButton.Content" xml:space="preserve"><value>Delete selected tag</value></data>
+    <data name="ConfirmDeleteTagButton.Content" xml:space="preserve"><value>Delete</value></data>
+    <data name="CancelDeleteTagButton.Content" xml:space="preserve"><value>Cancel</value></data>
+    <data name="CloseTagManagerButton.Content" xml:space="preserve"><value>Close</value></data>
+    <data name="Tags_Loading" xml:space="preserve"><value>Loading tags...</value></data>
+    <data name="Tags_Loaded" xml:space="preserve"><value>{0} tags loaded.</value></data>
+    <data name="Tags_Empty" xml:space="preserve"><value>No local tags.</value></data>
+    <data name="Tags_Creating" xml:space="preserve"><value>Creating tag...</value></data>
+    <data name="Tags_Created" xml:space="preserve"><value>Tag {0} created.</value></data>
+    <data name="Tags_Deleting" xml:space="preserve"><value>Deleting tag...</value></data>
+    <data name="Tags_Deleted" xml:space="preserve"><value>Tag {0} deleted.</value></data>
+    <data name="Tags_DeleteConfirmation" xml:space="preserve"><value>Delete the local tag {0}? Commits will not be deleted.</value></data>
+    <data name="Error_TagNameRequired" xml:space="preserve"><value>Enter a tag name.</value></data>
+    <data name="Error_InvalidTagName" xml:space="preserve"><value>{0} is not a valid tag name.</value></data>
+    <data name="Error_InvalidTagTarget" xml:space="preserve"><value>{0} does not identify a valid commit.</value></data>
+    <data name="AmendMessageButton.Content" xml:space="preserve"><value>Edit message</value></data>
+    <data name="AmendMessageButton.ToolTipService.ToolTip" xml:space="preserve"><value>Change only a commit message</value></data>
+    <data name="AmendMessageDialog_Title" xml:space="preserve"><value>Edit commit message</value></data>
+    <data name="AmendMessageDialog_Description" xml:space="preserve"><value>Select a commit and edit only its message. Staged changes and working-tree files will not be included.</value></data>
+    <data name="AmendMessageDialog_WarningTitle" xml:space="preserve"><value>Later history will be rewritten</value></data>
+    <data name="AmendMessageDialog_WarningMessage" xml:space="preserve"><value>The selected commit and its descendants will receive new identifiers, but their file trees will remain identical.</value></data>
+    <data name="AmendMessageDialog_Action" xml:space="preserve"><value>Save new message</value></data>
+    <data name="Status_AmendingMessage" xml:space="preserve"><value>Changing commit message...</value></data>
+    <data name="Status_AmendMessageComplete" xml:space="preserve"><value>Commit message changed without including staged files.</value></data>
+    <data name="HistoryFilesSelectorItem.Text" xml:space="preserve"><value>Changed files</value></data>
+    <data name="HistoryPatchSelectorItem.Text" xml:space="preserve"><value>Patches</value></data>
+    <data name="HistoryMessageMoreButton.Content" xml:space="preserve"><value>Show more</value></data>
+    <data name="HistoryMessageLessButton.Content" xml:space="preserve"><value>Show less</value></data>
+    <data name="HomeNavigationItem.Content" xml:space="preserve"><value>Home</value></data>
+    <data name="OpenRepositoryNavigationItem.Content" xml:space="preserve"><value>Open</value></data>
+    <data name="CloneRepositoryNavigationItem.Content" xml:space="preserve"><value>Clone</value></data>
+    <data name="RefreshNavigationItem.Content" xml:space="preserve"><value>Refresh</value></data>
+    <data name="RemoteManagerNavigationItem.Content" xml:space="preserve"><value>Remotes</value></data>
+    <data name="FetchNavigationItem.Content" xml:space="preserve"><value>Fetch</value></data>
+    <data name="PullNavigationItem.Content" xml:space="preserve"><value>Pull</value></data>
+    <data name="PushNavigationItem.Content" xml:space="preserve"><value>Push</value></data>
+    <data name="HistoryNavigationItem.Content" xml:space="preserve"><value>History</value></data>
+    <data name="TagManagerNavigationItem.Content" xml:space="preserve"><value>Tags</value></data>
+    <data name="RepositoryOptionsNavigationItem.Content" xml:space="preserve"><value>Edit .gitignore</value></data>
+    <data name="SettingsNavigationItem.Content" xml:space="preserve"><value>Settings</value></data>
+    <data name="PlanningNavigationItem.Content" xml:space="preserve"><value>Planning</value></data>
+    <data name="PlanningPageTitle.Text" xml:space="preserve"><value>Planning board</value></data>
+    <data name="PlanningNewItemButtonText.Text" xml:space="preserve"><value>New item</value></data>
+    <data name="PlanningNewItemActionButton.ToolTipService.ToolTip" xml:space="preserve"><value>Add a feature, implementation, improvement, or bug</value></data>
+    <data name="PlanningSearchBox.PlaceholderText" xml:space="preserve"><value>Search the plan</value></data>
+    <data name="PlanningTypeFilterComboBox.ToolTipService.ToolTip" xml:space="preserve"><value>Filter by type</value></data>
+    <data name="PlanningTypeFilterComboBox.AutomationProperties.Name" xml:space="preserve"><value>Type filter</value></data>
+    <data name="PlanningTagFilterComboBox.ToolTipService.ToolTip" xml:space="preserve"><value>Filter by tag</value></data>
+    <data name="PlanningTagFilterComboBox.AutomationProperties.Name" xml:space="preserve"><value>Tag filter</value></data>
+    <data name="PlanningErrorInfoBar.Title" xml:space="preserve"><value>The board could not be saved</value></data>
+    <data name="PlanningEditCardButton.ToolTipService.ToolTip" xml:space="preserve"><value>Edit item</value></data>
+    <data name="PlanningEditCardButton.AutomationProperties.Name" xml:space="preserve"><value>Edit item</value></data>
+    <data name="PlanningDeleteCardButton.ToolTipService.ToolTip" xml:space="preserve"><value>Delete item</value></data>
+    <data name="PlanningDeleteCardButton.AutomationProperties.Name" xml:space="preserve"><value>Delete item</value></data>
+    <data name="PlanningCardProgressLabel.Text" xml:space="preserve"><value>Progress</value></data>
+    <data name="PlanningEmptyIdeas.Text" xml:space="preserve"><value>Free space for that next big idea.</value></data>
+    <data name="PlanningEmptyPlanned.Text" xml:space="preserve"><value>Drag here whatever already has a plan.</value></data>
+    <data name="PlanningEmptyInProgress.Text" xml:space="preserve"><value>Nothing in progress. How about starting something?</value></data>
+    <data name="PlanningEmptyCompleted.Text" xml:space="preserve"><value>Project wins will appear here.</value></data>
+    <data name="PlanningItemValidationInfoBar.Title" xml:space="preserve"><value>One detail is missing</value></data>
+    <data name="PlanningItemTitleTextBox.Header" xml:space="preserve"><value>Title</value></data>
+    <data name="PlanningItemTitleTextBox.PlaceholderText" xml:space="preserve"><value>What are we building or fixing?</value></data>
+    <data name="PlanningItemDescriptionTextBox.Header" xml:space="preserve"><value>Summary</value></data>
+    <data name="PlanningItemDescriptionTextBox.PlaceholderText" xml:space="preserve"><value>A short, direct explanation</value></data>
+    <data name="PlanningItemTypeComboBox.Header" xml:space="preserve"><value>Type</value></data>
+    <data name="PlanningItemStatusComboBox.Header" xml:space="preserve"><value>Stage</value></data>
+    <data name="PlanningItemProgressLabel.Text" xml:space="preserve"><value>Progress</value></data>
+    <data name="PlanningItemTagsTextBox.Header" xml:space="preserve"><value>Tags</value></data>
+    <data name="PlanningItemTagsTextBox.PlaceholderText" xml:space="preserve"><value>interface, urgent, version 2 — separate with commas</value></data>
+    <data name="PlanningItemCommitComboBox.Header" xml:space="preserve"><value>Associated commit</value></data>
+    <data name="PlanningItemDocumentationTextBox.Header" xml:space="preserve"><value>Detailed documentation</value></data>
+    <data name="PlanningItemDocumentationTextBox.PlaceholderText" xml:space="preserve"><value>Context, decisions, acceptance criteria, risks, and implementation notes...</value></data>
+    <data name="Planning_FilterAllTypes" xml:space="preserve"><value>All types</value></data>
+    <data name="Planning_FilterAllTags" xml:space="preserve"><value>All tags</value></data>
+    <data name="Planning_Type_Feature" xml:space="preserve"><value>Feature</value></data>
+    <data name="Planning_Type_Bug" xml:space="preserve"><value>Bug</value></data>
+    <data name="Planning_Type_Implementation" xml:space="preserve"><value>Implementation</value></data>
+    <data name="Planning_Type_Improvement" xml:space="preserve"><value>Improvement</value></data>
+    <data name="Planning_Status_Ideas" xml:space="preserve"><value>Ideas</value></data>
+    <data name="Planning_Status_Planned" xml:space="preserve"><value>Planned</value></data>
+    <data name="Planning_Status_InProgress" xml:space="preserve"><value>In progress</value></data>
+    <data name="Planning_Status_Completed" xml:space="preserve"><value>Completed</value></data>
+    <data name="Planning_ColumnIdeas" xml:space="preserve"><value>Ideas · {0}</value></data>
+    <data name="Planning_ColumnPlanned" xml:space="preserve"><value>Planned · {0}</value></data>
+    <data name="Planning_ColumnInProgress" xml:space="preserve"><value>In progress · {0}</value></data>
+    <data name="Planning_ColumnCompleted" xml:space="preserve"><value>Completed · {0}</value></data>
+    <data name="Planning_SummaryTotal" xml:space="preserve"><value>{0} items</value></data>
+    <data name="Planning_SummaryInProgress" xml:space="preserve"><value>{0} in progress</value></data>
+    <data name="Planning_SummaryCompleted" xml:space="preserve"><value>{0} completed</value></data>
+    <data name="Planning_SummaryProgress" xml:space="preserve"><value>{0}% overall</value></data>
+    <data name="Planning_ProgressValue" xml:space="preserve"><value>{0}%</value></data>
+    <data name="Planning_DocumentationHeader" xml:space="preserve"><value>View documentation</value></data>
+    <data name="Planning_CommitNone" xml:space="preserve"><value>No associated commit</value></data>
+    <data name="Planning_ItemDialogCreateTitle" xml:space="preserve"><value>New planning item</value></data>
+    <data name="Planning_ItemDialogEditTitle" xml:space="preserve"><value>Edit planning item</value></data>
+    <data name="Planning_CreateAction" xml:space="preserve"><value>Create item</value></data>
+    <data name="Planning_SaveAction" xml:space="preserve"><value>Save changes</value></data>
+    <data name="Planning_TitleRequired" xml:space="preserve"><value>Give the item a title before saving.</value></data>
+    <data name="Planning_DeleteDialogTitle" xml:space="preserve"><value>Delete item</value></data>
+    <data name="Planning_DeleteHeading" xml:space="preserve"><value>Delete “{0}”?</value></data>
+    <data name="Planning_DeleteMessage" xml:space="preserve"><value>The item and its documentation will be removed from the local board. The repository and commits will not be changed.</value></data>
+    <data name="Planning_DeleteAction" xml:space="preserve"><value>Delete</value></data>
+    <data name="Planning_DragCaption" xml:space="preserve"><value>Move to this stage</value></data>
+    <data name="Planning_ErrorLoad" xml:space="preserve"><value>The planning board could not be loaded: {0}</value></data>
+    <data name="Planning_ErrorSave" xml:space="preserve"><value>The planning board could not be saved: {0}</value></data>
+    <data name="Common_Cancel" xml:space="preserve"><value>Cancel</value></data>
+    <data name="SettingsPageTitle.Text" xml:space="preserve"><value>Settings</value></data>
+    <data name="SettingsAutoSaveText.Text" xml:space="preserve"><value>Changes are saved automatically. The new language applies after restarting BRANCHY.</value></data>
+    <data name="SwitchBranchText.Text" xml:space="preserve"><value>Switch branch</value></data>
+    <data name="Branch_SwitchTooltip" xml:space="preserve"><value>Switch branch · Current: {0}</value></data>
+    <data name="DiffFindButton.ToolTipService.ToolTip" xml:space="preserve"><value>Find in diff (Ctrl+F)</value></data>
+    <data name="DiffFindButton.AutomationProperties.Name" xml:space="preserve"><value>Find in diff</value></data>
+    <data name="DiffEditButton.ToolTipService.ToolTip" xml:space="preserve"><value>Edit working-tree file</value></data>
+    <data name="DiffEditButton.AutomationProperties.Name" xml:space="preserve"><value>Edit file</value></data>
+    <data name="DiffExpandButton.ToolTipService.ToolTip" xml:space="preserve"><value>Expand or collapse diff</value></data>
+    <data name="DiffExpandButton.AutomationProperties.Name" xml:space="preserve"><value>Expand or collapse diff</value></data>
+    <data name="DiffSearchBox.PlaceholderText" xml:space="preserve"><value>Find text…</value></data>
+    <data name="DiffSearchBox.AutomationProperties.Name" xml:space="preserve"><value>Text to find</value></data>
+    <data name="DiffPreviousButton.ToolTipService.ToolTip" xml:space="preserve"><value>Previous match (Shift+F3)</value></data>
+    <data name="DiffPreviousButton.AutomationProperties.Name" xml:space="preserve"><value>Previous match</value></data>
+    <data name="DiffNextButton.ToolTipService.ToolTip" xml:space="preserve"><value>Next match (F3)</value></data>
+    <data name="DiffNextButton.AutomationProperties.Name" xml:space="preserve"><value>Next match</value></data>
+    <data name="DiffCloseSearchButton.ToolTipService.ToolTip" xml:space="preserve"><value>Close search</value></data>
+    <data name="DiffCloseSearchButton.AutomationProperties.Name" xml:space="preserve"><value>Close search</value></data>
+    <data name="Diff_SearchResults" xml:space="preserve"><value>Matching line {0} of {1}</value></data>
+    <data name="QuickEditDialog.Title" xml:space="preserve"><value>Quick edit</value></data>
+    <data name="QuickEditNotice.Text" xml:space="preserve"><value>Editing the full working-tree file. Saving refreshes the diff but does not stage changes for commit.</value></data>
+    <data name="QuickEditSaveButton.Content" xml:space="preserve"><value>Save changes</value></data>
+    <data name="QuickEditSaveButton.ToolTipService.ToolTip" xml:space="preserve"><value>Save (Ctrl+S)</value></data>
+    <data name="QuickEdit_NoMatch" xml:space="preserve"><value>No matches found.</value></data>
+    <data name="QuickEdit_Unsaved" xml:space="preserve"><value>There are unsaved changes. Save or use Cancel to discard your edits.</value></data>
+    <data name="Error_QuickEditUnsupported" xml:space="preserve"><value>Quick edit supports UTF-8 text or BOM-marked UTF-16 files up to 4 MB. Use an external editor for this file.</value></data>
+    <data name="Error_QuickEditPath" xml:space="preserve"><value>Quick edit only allows files inside the repository, outside .git, without symbolic links or junctions.</value></data>
+    <data name="Error_QuickEditChanged" xml:space="preserve"><value>Another program changed this file. Your edit was not saved to avoid overwriting those changes. Cancel and reopen the file.</value></data>
+    <data name="SettingsBackLabel.Text" xml:space="preserve"><value>Back</value></data>
+    <data name="SettingsBackButton.ToolTipService.ToolTip" xml:space="preserve"><value>Return to the previous page</value></data>
+    <data name="SettingsBackButton.AutomationProperties.Name" xml:space="preserve"><value>Return to the previous page</value></data>
+</root>

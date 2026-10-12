@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Branchy.TagManagerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:Branchy.Models"
+    x:Uid="TagManagerDialog"
+    CornerRadius="8"
+    DefaultButton="None">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">860</x:Double>
+    </ContentDialog.Resources>
+
+    <Grid Width="800" Height="520" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <InfoBar
+            x:Uid="TagManagerErrorInfoBar"
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+            Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+            Severity="Error" />
+
+        <Grid Grid.Row="1" ColumnSpacing="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <ListView
+                        HorizontalContentAlignment="Stretch"
+                        ItemsSource="{x:Bind ViewModel.Tags}"
+                        SelectedItem="{x:Bind ViewModel.SelectedTag, Mode=TwoWay}"
+                        SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:GitTag">
+                                <Grid Padding="12,8" ColumnSpacing="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="24" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <SymbolIcon Symbol="Tag" />
+                                    <StackPanel Grid.Column="1" Spacing="3">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <TextBlock FontWeight="SemiBold" Text="{x:Bind Name}" />
+                                            <Border
+                                                Padding="6,1"
+                                                Background="{ThemeResource AccentFillColorSecondaryBrush}"
+                                                CornerRadius="4"
+                                                Visibility="{x:Bind IsAnnotated}">
+                                                <TextBlock
+                                                    x:Uid="AnnotatedTagBadge"
+                                                    FontSize="11"
+                                                    Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                                            </Border>
+                                        </StackPanel>
+                                        <TextBlock
+                                            FontFamily="Cascadia Mono, Consolas"
+                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                            Text="{x:Bind ShortTargetHash}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Text="{x:Bind Subject}"
+                                            TextTrimming="CharacterEllipsis"
+                                            Visibility="{x:Bind HasSubject}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <TextBlock
+                        x:Uid="TagManagerEmptyText"
+                        Margin="24"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind ViewModel.HasNoTags, Mode=OneWay}" />
+                </Grid>
+            </Border>
+
+            <StackPanel Grid.Column="1" Spacing="10">
+                <TextBlock x:Uid="CreateTagTitle" Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBox
+                    x:Uid="TagNameTextBox"
+                    Text="{x:Bind ViewModel.NewTagName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    x:Uid="TagTargetTextBox"
+                    Text="{x:Bind ViewModel.Target, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    x:Uid="TagMessageTextBox"
+                    MinHeight="92"
+                    AcceptsReturn="True"
+                    Text="{x:Bind ViewModel.AnnotationMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    x:Uid="TagMessageHint"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    TextWrapping="Wrap" />
+                <Button
+                    x:Uid="CreateTagButton"
+                    HorizontalAlignment="Stretch"
+                    Click="CreateTagButton_Click"
+                    IsEnabled="{x:Bind ViewModel.CanCreate, Mode=OneWay}"
+                    Style="{StaticResource AccentButtonStyle}" />
+                <Button
+                    x:Uid="DeleteTagButton"
+                    HorizontalAlignment="Stretch"
+                    Click="DeleteTagButton_Click"
+                    IsEnabled="{x:Bind ViewModel.CanDelete, Mode=OneWay}" />
+
+                <Border
+                    x:Name="DeleteConfirmationPanel"
+                    Padding="12"
+                    Background="{ThemeResource SystemFillColorCriticalBackgroundBrush}"
+                    CornerRadius="8"
+                    Visibility="Collapsed">
+                    <StackPanel Spacing="10">
+                        <TextBlock
+                            x:Name="DeleteTagConfirmationText"
+                            TextWrapping="Wrap" />
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                x:Uid="ConfirmDeleteTagButton"
+                                HorizontalAlignment="Stretch"
+                                Click="ConfirmDeleteTagButton_Click"
+                                CornerRadius="4" />
+                            <Button
+                                x:Uid="CancelDeleteTagButton"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                Click="CancelDeleteTagButton_Click"
+                                CornerRadius="4" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
+            <ProgressRing
+                Width="16"
+                Height="16"
+                IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+        </StackPanel>
+
+        <Button
+            x:Uid="CloseTagManagerButton"
+            Grid.Row="3"
+            MinWidth="120"
+            HorizontalAlignment="Right"
+            Click="CloseTagManagerButton_Click"
+            CornerRadius="4" />
+    </Grid>
+</ContentDialog>

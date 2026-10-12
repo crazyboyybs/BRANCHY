@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Branchy.HistoryFilesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Branchy.Converters"
+    xmlns:models="using:Branchy.Models">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+    <Border
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="6">
+        <Grid>
+            <ListView
+                HorizontalContentAlignment="Stretch"
+                IsItemClickEnabled="False"
+                ItemsSource="{Binding Files}"
+                SelectionMode="None"
+                Visibility="{Binding HasFiles, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:GitCommitFileChange">
+                        <Grid Padding="7,3" ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="26" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Width="24"
+                                Height="24"
+                                Background="{ThemeResource AccentFillColorSecondaryBrush}"
+                                CornerRadius="12">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                    Text="{x:Bind StatusCode}" />
+                            </Border>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Text="{x:Bind DisplayPath}"
+                                TextTrimming="CharacterEllipsis" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBlock
+                x:Uid="HistoryNoFilesText"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Visibility="{Binding HasNoFiles, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
+    </Border>
+</Page>

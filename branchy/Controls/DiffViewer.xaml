@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="Branchy.Controls.DiffViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:converters="using:Branchy.Converters"
+    xmlns:models="using:Branchy.Models">
+    <UserControl.Resources>
+        <converters:DiffLineKindToVisibilityConverter x:Key="LineVisibility" />
+        <Style x:Key="DiffIconButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="DiffIconToggleStyle" TargetType="ToggleButton" BasedOn="{StaticResource DefaultToggleButtonStyle}">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="DiffRowStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+    </UserControl.Resources>
+    <Grid RowSpacing="8" KeyboardAcceleratorPlacementMode="Hidden">
+        <Grid.KeyboardAccelerators>
+            <KeyboardAccelerator Key="F" Modifiers="Control" Invoked="Find_Invoked" />
+            <KeyboardAccelerator Key="F3" Invoked="FindNext_Invoked" />
+            <KeyboardAccelerator Key="F3" Modifiers="Shift" Invoked="FindPrevious_Invoked" />
+        </Grid.KeyboardAccelerators>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="ActionButtons" Visibility="Collapsed" HorizontalAlignment="Right" Orientation="Horizontal" Spacing="4">
+            <Button x:Uid="DiffFindButton" Style="{StaticResource DiffIconButtonStyle}" Click="Find_Click"
+                    PointerEntered="Find_PointerEntered" PointerExited="Find_PointerExited"
+                    PointerPressed="Find_PointerPressed" PointerReleased="Find_PointerReleased">
+                <!-- AnimatedIcon owns its RenderTransform; mirror the outer container instead. -->
+                <Grid Width="16" Height="16" RenderTransformOrigin="0.5,0.5" FlowDirection="LeftToRight">
+                    <Grid.RenderTransform><ScaleTransform ScaleX="-1" /></Grid.RenderTransform>
+                    <AnimatedIcon x:Name="FindAnimatedIcon" Width="16" Height="16">
+                        <AnimatedIcon.Source><animatedvisuals:AnimatedFindVisualSource /></AnimatedIcon.Source>
+                        <AnimatedIcon.FallbackIconSource><FontIconSource Glyph="&#xE721;" /></AnimatedIcon.FallbackIconSource>
+                    </AnimatedIcon>
+                </Grid>
+            </Button>
+            <Button x:Name="EditButton" x:Uid="DiffEditButton" Style="{StaticResource DiffIconButtonStyle}" Visibility="Collapsed" Click="Edit_Click"><FontIcon Glyph="&#xE70F;" FontSize="16" /></Button>
+            <ToggleButton x:Name="ExpandButton" x:Uid="DiffExpandButton" Style="{StaticResource DiffIconToggleStyle}" Click="Expand_Click"><FontIcon Glyph="&#xE740;" FontSize="16" /></ToggleButton>
+        </StackPanel>
+        <Grid x:Name="SearchArea" Grid.Row="1" Visibility="Collapsed" RowSpacing="6">
+            <Grid.RenderTransform><TranslateTransform x:Name="SearchTranslation" /></Grid.RenderTransform>
+            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+            <Grid x:Name="SearchPanel" ColumnSpacing="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <AutoSuggestBox x:Name="SearchBox" x:Uid="DiffSearchBox" QueryIcon="Find" TextChanged="Search_TextChanged" QuerySubmitted="Search_QuerySubmitted" />
+                <Button Grid.Column="1" x:Uid="DiffPreviousButton" Style="{StaticResource DiffIconButtonStyle}" Click="Previous_Click"><FontIcon Glyph="&#xE70E;" FontSize="16" /></Button>
+                <Button Grid.Column="2" x:Uid="DiffNextButton" Style="{StaticResource DiffIconButtonStyle}" Click="Next_Click"><FontIcon Glyph="&#xE70D;" FontSize="16" /></Button>
+                <Button Grid.Column="3" x:Uid="DiffCloseSearchButton" Style="{StaticResource DiffIconButtonStyle}" Click="CloseSearch_Click"><FontIcon Glyph="&#xE711;" FontSize="16" /></Button>
+            </Grid>
+            <TextBlock x:Name="SearchStatus" Grid.Row="1" Margin="4,0,4,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <ListView x:Name="LinesList" SelectionMode="Single"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto" ItemContainerStyle="{StaticResource DiffRowStyle}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:GitDiffLine">
+                        <Grid>
+                            <Border Padding="8,2" Visibility="{x:Bind Kind, Converter={StaticResource LineVisibility}, ConverterParameter=Context}">
+                                <TextBlock FontFamily="Cascadia Mono, Consolas" FontSize="12" IsTextSelectionEnabled="True" Text="{x:Bind Text}" TextWrapping="NoWrap" />
+                            </Border>
+                            <Border Padding="8,2" Background="{ThemeResource SystemFillColorSuccessBackgroundBrush}" Visibility="{x:Bind Kind, Converter={StaticResource LineVisibility}, ConverterParameter=Addition}">
+                                <TextBlock FontFamily="Cascadia Mono, Consolas" FontSize="12" Foreground="{ThemeResource SystemFillColorSuccessBrush}" IsTextSelectionEnabled="True" Text="{x:Bind Text}" TextWrapping="NoWrap" />
+                            </Border>
+                            <Border Padding="8,2" Background="{ThemeResource SystemFillColorCriticalBackgroundBrush}" Visibility="{x:Bind Kind, Converter={StaticResource LineVisibility}, ConverterParameter=Deletion}">
+                                <TextBlock FontFamily="Cascadia Mono, Consolas" FontSize="12" Foreground="{ThemeResource SystemFillColorCriticalBrush}" IsTextSelectionEnabled="True" Text="{x:Bind Text}" TextWrapping="NoWrap" />
+                            </Border>
+                            <Border Padding="8,2" Background="{ThemeResource SubtleFillColorSecondaryBrush}" Visibility="{x:Bind Kind, Converter={StaticResource LineVisibility}, ConverterParameter=HunkHeader}">
+                                <TextBlock FontFamily="Cascadia Mono, Consolas" FontSize="12" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" IsTextSelectionEnabled="True" Text="{x:Bind Text}" TextWrapping="NoWrap" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TextBlock x:Name="EmptyText" x:Uid="NoSelection" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </Grid>
+    </Grid>
+</UserControl>

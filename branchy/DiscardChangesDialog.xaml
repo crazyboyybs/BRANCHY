@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Branchy.DiscardChangesDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Uid="DiscardChangesDialog"
+    CornerRadius="8"
+    DefaultButton="None">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">600</x:Double>
+    </ContentDialog.Resources>
+
+    <Grid Width="520" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <FontIcon
+                FontSize="24"
+                Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                Glyph="&#xE7BA;" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="{x:Bind Heading}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Spacing="8">
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind Message}"
+                TextWrapping="Wrap" />
+            <Border
+                Padding="10,8"
+                Background="{ThemeResource SubtleFillColorSecondaryBrush}"
+                CornerRadius="6">
+                <TextBlock
+                    FontFamily="Cascadia Mono, Consolas"
+                    Text="{x:Bind Path}"
+                    TextTrimming="CharacterEllipsis" />
+            </Border>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            Spacing="8">
+            <Button
+                MinWidth="150"
+                Click="ConfirmButton_Click"
+                Content="{x:Bind ActionLabel}"
+                Style="{StaticResource AccentButtonStyle}" />
+            <Button
+                x:Uid="CancelDiscardChangesButton"
+                MinWidth="120"
+                Click="CancelButton_Click" />
+        </StackPanel>
+    </Grid>
+</ContentDialog>

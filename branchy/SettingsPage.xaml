@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Branchy.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    Background="Transparent"
+    NavigationCacheMode="Required">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button x:Uid="SettingsBackButton" Margin="24,12,24,0" HorizontalAlignment="Left"
+                Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click"
+                PointerEntered="BackButton_PointerEntered" PointerExited="BackButton_PointerExited"
+                PointerPressed="BackButton_PointerPressed" PointerReleased="BackButton_PointerReleased">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <AnimatedIcon x:Name="BackAnimatedIcon" Width="20" Height="20">
+                    <AnimatedIcon.Source>
+                        <animatedvisuals:AnimatedBackVisualSource />
+                    </AnimatedIcon.Source>
+                    <AnimatedIcon.FallbackIconSource>
+                        <FontIconSource Glyph="&#xE72B;" />
+                    </AnimatedIcon.FallbackIconSource>
+                </AnimatedIcon>
+                <TextBlock x:Uid="SettingsBackLabel" />
+            </StackPanel>
+        </Button>
+    <ScrollViewer
+        Grid.Row="1"
+        Background="Transparent"
+        HorizontalScrollMode="Disabled"
+        HorizontalScrollBarVisibility="Disabled"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Top"
+        VerticalScrollBarVisibility="Auto">
+    <Grid Padding="24" Background="Transparent">
+    <Grid x:Name="SettingsContent" MaxWidth="900" HorizontalAlignment="Stretch" RowSpacing="16" SizeChanged="SettingsContent_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Uid="SettingsPageTitle" Style="{StaticResource TitleTextBlockStyle}" />
+
+        <InfoBar
+            Grid.Row="1"
+            x:Name="RestartInfoBar"
+            x:Uid="SettingsRestartInfoBar"
+            IsClosable="False"
+            IsOpen="False"
+            Severity="Informational" />
+
+        <Border
+            Grid.Row="2"
+            Padding="16"
+            Background="Transparent"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid x:Name="LanguageSettingGrid" ColumnSpacing="20" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="240" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="4">
+                    <TextBlock x:Uid="LanguageSettingTitle" FontWeight="SemiBold" />
+                    <TextBlock
+                        x:Uid="LanguageSettingDescription"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <ComboBox x:Name="LanguageComboBox" Grid.Column="1" HorizontalAlignment="Stretch" SelectionChanged="Preference_SelectionChanged">
+                    <ComboBoxItem x:Uid="LanguageSystemOption" />
+                    <ComboBoxItem x:Uid="LanguagePortugueseOption" />
+                    <ComboBoxItem x:Uid="LanguageEnglishOption" />
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="3"
+            Padding="16"
+            Background="Transparent"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid x:Name="ThemeSettingGrid" ColumnSpacing="20" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="240" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="4">
+                    <TextBlock x:Uid="ThemeSettingTitle" FontWeight="SemiBold" />
+                    <TextBlock
+                        x:Uid="ThemeSettingDescription"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <ComboBox x:Name="ThemeComboBox" Grid.Column="1" HorizontalAlignment="Stretch" SelectionChanged="Preference_SelectionChanged">
+                    <ComboBoxItem x:Uid="ThemeSystemOption" />
+                    <ComboBoxItem x:Uid="ThemeLightOption" />
+                    <ComboBoxItem x:Uid="ThemeDarkOption" />
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="4"
+            Padding="16"
+            Background="Transparent"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid x:Name="LayoutSettingGrid" ColumnSpacing="20" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="240" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="4">
+                    <TextBlock x:Uid="LayoutSettingTitle" FontWeight="SemiBold" />
+                    <TextBlock
+                        x:Uid="LayoutSettingDescription"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <ComboBox x:Name="LayoutComboBox" Grid.Column="1" HorizontalAlignment="Stretch" SelectionChanged="Preference_SelectionChanged">
+                    <ComboBoxItem x:Uid="LayoutComfortableOption" />
+                    <ComboBoxItem x:Uid="LayoutCompactOption" />
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <TextBlock x:Uid="SettingsAutoSaveText" Grid.Row="5" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+    </Grid>
+    </Grid>
+    </ScrollViewer>
+    </Grid>
+</Page>

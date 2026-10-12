@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Branchy.HistoryDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:Branchy.Models"
+    x:Uid="HistoryDialog"
+    CornerRadius="8"
+    DefaultButton="None">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">1040</x:Double>
+    </ContentDialog.Resources>
+
+    <Grid Width="960" Height="610" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="210" />
+            </Grid.ColumnDefinitions>
+            <AutoSuggestBox
+                x:Name="HistorySearchBox"
+                x:Uid="HistorySearchBox"
+                QuerySubmitted="HistorySearchBox_QuerySubmitted"
+                TextChanged="HistorySearchBox_TextChanged">
+                <AutoSuggestBox.QueryIcon>
+                    <SymbolIcon Symbol="Find" />
+                </AutoSuggestBox.QueryIcon>
+            </AutoSuggestBox>
+            <ComboBox
+                x:Name="HistorySearchScopeComboBox"
+                x:Uid="HistorySearchScopeComboBox"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                SelectedIndex="0"
+                SelectionChanged="HistorySearchScopeComboBox_SelectionChanged">
+                <ComboBoxItem x:Uid="HistorySearchScopeAll" />
+                <ComboBoxItem x:Uid="HistorySearchScopeMessage" />
+                <ComboBoxItem x:Uid="HistorySearchScopeDiff" />
+                <ComboBoxItem x:Uid="HistorySearchScopeBranch" />
+            </ComboBox>
+        </Grid>
+
+        <InfoBar
+            x:Uid="HistoryErrorInfoBar"
+            Grid.Row="1"
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+            Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+            Severity="Error" />
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        x:Uid="HistoryTimelineTitle"
+                        Margin="16,12,16,8"
+                        Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <Grid Grid.Row="1">
+                        <ListView
+                            x:Name="CommitList"
+                            HorizontalContentAlignment="Stretch"
+                            ItemsSource="{x:Bind ViewModel.Commits}"
+                            SelectionChanged="CommitList_SelectionChanged"
+                            SelectionMode="Single">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:GitHistoryEntry">
+                                    <Grid Padding="8,7" ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="24" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Border
+                                                Width="2"
+                                                HorizontalAlignment="Center"
+                                                Background="{ThemeResource CardStrokeColorDefaultBrush}" />
+                                            <Ellipse
+                                                Width="11"
+                                                Height="11"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Fill="{ThemeResource AccentFillColorDefaultBrush}"
+                                                Stroke="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                StrokeThickness="2" />
+                                        </Grid>
+                                        <StackPanel Grid.Column="1" Spacing="3">
+                                            <Grid ColumnSpacing="6">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    FontWeight="SemiBold"
+                                                    Text="{x:Bind Subject}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                                <FontIcon
+                                                    x:Uid="HistoryMergeBadge"
+                                                    Grid.Column="1"
+                                                    FontSize="13"
+                                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                                    Glyph="&#xE8AB;"
+                                                    Visibility="{x:Bind IsMerge}" />
+                                            </Grid>
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <TextBlock
+                                                    FontFamily="Cascadia Mono, Consolas"
+                                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                                    Text="{x:Bind ShortHash}" />
+                                                <TextBlock
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Text="{x:Bind AuthorAndDate}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </StackPanel>
+                                            <Border
+                                                MaxWidth="250"
+                                                Padding="7,2"
+                                                HorizontalAlignment="Left"
+                                                Background="{ThemeResource AccentFillColorSecondaryBrush}"
+                                                CornerRadius="4"
+                                                Visibility="{x:Bind HasReferences}">
+                                                <TextBlock
+                                                    FontSize="11"
+                                                    Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                                    Text="{x:Bind References}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </Border>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <StackPanel
+                            Margin="24"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Spacing="8"
+                            Visibility="{x:Bind ViewModel.HasNoCommits, Mode=OneWay}">
+                            <SymbolIcon
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Symbol="Clock" />
+                            <TextBlock
+                                x:Uid="HistoryEmptyText"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel
+                            Margin="24"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Spacing="8"
+                            Visibility="{x:Bind ViewModel.HasNoSearchResults, Mode=OneWay}">
+                            <SymbolIcon
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Symbol="Find" />
+                            <TextBlock
+                                x:Uid="HistorySearchNoResultsText"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <ProgressRing
+                            Width="36"
+                            Height="36"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsActive="{x:Bind ViewModel.IsListLoading, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.IsListLoading, Mode=OneWay}" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Column="2"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Spacing="5" Visibility="{x:Bind ViewModel.HasSelectedCommit, Mode=OneWay}">
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Text="{x:Bind ViewModel.SelectedSubject, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis" />
+                        <TextBlock
+                            FontFamily="Cascadia Mono, Consolas"
+                            FontSize="12"
+                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.SelectedHash, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis" />
+                        <TextBlock
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.SelectedAuthor, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis" />
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.SelectedDate, Mode=OneWay}" />
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.SelectedParentSummary, Mode=OneWay}" />
+                        </StackPanel>
+                        <Border
+                            MaxWidth="560"
+                            Padding="8,3"
+                            HorizontalAlignment="Left"
+                            Background="{ThemeResource AccentFillColorSecondaryBrush}"
+                            CornerRadius="4"
+                            Visibility="{x:Bind ViewModel.HasSelectedReferences, Mode=OneWay}">
+                            <TextBlock
+                                Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                Text="{x:Bind ViewModel.SelectedReferences, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis" />
+                        </Border>
+                    </StackPanel>
+
+                    <Grid
+                        x:Name="CommitMessageHost"
+                        Grid.Row="1"
+                        Margin="0,12,0,10"
+                        HorizontalAlignment="Stretch"
+                        Visibility="{x:Bind ViewModel.HasSelectedCommit, Mode=OneWay}">
+                        <Border
+                            x:Name="CommitMessageSurface"
+                            Height="42"
+                            Margin="-1,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="6">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="42" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Margin="10,0,88,0"
+                                    VerticalAlignment="Center"
+                                    IsTextSelectionEnabled="True"
+                                    Text="{x:Bind ViewModel.SelectedSubject, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="NoWrap" />
+                                <ScrollViewer
+                                    x:Name="CommitMessageScroller"
+                                    Grid.Row="1"
+                                    HorizontalScrollBarVisibility="Disabled"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <TextBlock
+                                        Margin="10,8,10,10"
+                                        IsTextSelectionEnabled="True"
+                                        Text="{x:Bind ViewModel.SelectedMessageBody, Mode=OneWay}"
+                                        TextWrapping="Wrap" />
+                                </ScrollViewer>
+                                <Button
+                                    x:Name="ExpandMessageButton"
+                                    x:Uid="HistoryMessageMoreButton"
+                                    Margin="0,0,6,0"
+                                    Padding="6,2"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="ToggleMessageExpansionButton_Click"
+                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                <Button
+                                    x:Name="CollapseMessageButton"
+                                    x:Uid="HistoryMessageLessButton"
+                                    Margin="0,0,6,0"
+                                    Padding="6,2"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="ToggleMessageExpansionButton_Click"
+                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                    Visibility="Collapsed" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="2"
+                        Grid.RowSpan="2"
+                        RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <SelectorBar
+                            x:Name="HistoryDetailSelector"
+                            HorizontalAlignment="Stretch"
+                            SelectionChanged="HistoryDetailSelector_SelectionChanged">
+                            <SelectorBarItem
+                                x:Name="PatchSelectorItem"
+                                x:Uid="HistoryPatchSelectorItem" />
+                            <SelectorBarItem
+                                x:Name="FilesSelectorItem"
+                                x:Uid="HistoryFilesSelectorItem" />
+                        </SelectorBar>
+                        <Frame
+                            x:Name="HistoryDetailFrame"
+                            Grid.Row="1"
+                            IsNavigationStackEnabled="False" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
+            <ProgressRing
+                Width="16"
+                Height="16"
+                IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="4"
+            Margin="0,0,4,0"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            Spacing="8">
+            <Button
+                x:Name="RevertHistoryCommitButton"
+                x:Uid="RevertHistoryCommitButton"
+                MinWidth="144"
+                Click="RevertHistoryCommitButton_Click"
+                IsEnabled="False" />
+            <Button
+                x:Uid="ExportHistoryCommitButton"
+                MinWidth="168"
+                Click="ExportHistoryCommitButton_Click"
+                IsEnabled="{x:Bind ViewModel.CanExport, Mode=OneWay}"
+                Style="{StaticResource AccentButtonStyle}" />
+            <Button
+                x:Uid="CloseHistoryDialogButton"
+                MinWidth="120"
+                Click="CloseHistoryDialogButton_Click"
+                CornerRadius="4" />
+        </StackPanel>
+    </Grid>
+</ContentDialog>

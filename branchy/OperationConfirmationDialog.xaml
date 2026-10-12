@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Branchy.OperationConfirmationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{x:Bind DialogTitle, Mode=OneTime}"
+    CornerRadius="8"
+    DefaultButton="None">
+
+    <ContentDialog.Resources>
+        <x:Double x:Key="ContentDialogMaxWidth">560</x:Double>
+    </ContentDialog.Resources>
+
+    <Grid Width="500" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="8">
+            <TextBlock
+                FontSize="18"
+                FontWeight="SemiBold"
+                Text="{x:Bind Heading, Mode=OneTime}"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind Message, Mode=OneTime}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Border
+            Grid.Row="1"
+            Padding="12,9"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <TextBlock
+                FontFamily="Cascadia Mono, Consolas"
+                IsTextSelectionEnabled="True"
+                Text="{x:Bind Detail, Mode=OneTime}"
+                TextTrimming="CharacterEllipsis" />
+        </Border>
+
+        <Grid Grid.Row="2" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                HorizontalAlignment="Stretch"
+                Click="ConfirmButton_Click"
+                Content="{x:Bind ActionLabel, Mode=OneTime}"
+                CornerRadius="4"
+                Style="{StaticResource AccentButtonStyle}" />
+            <Button
+                x:Uid="CancelOperationButton"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                Click="CancelButton_Click"
+                CornerRadius="4" />
+        </Grid>
+    </Grid>
+</ContentDialog>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Branchy.StagedChangesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Branchy.Converters"
+    xmlns:models="using:Branchy.Models"
+    Background="Transparent">
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <TextBlock
+            x:Uid="EmptyStaged"
+            Margin="24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            TextAlignment="Center"
+            TextWrapping="Wrap"
+            Visibility="{Binding HasNoStagedFiles, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <ListView
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding StagedFiles}"
+            SelectionChanged="StagedList_SelectionChanged"
+            SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:GitFileChange">
+                    <Grid Padding="10,6" ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="36" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Width="24"
+                            Height="24"
+                            Background="{ThemeResource AccentFillColorSecondaryBrush}"
+                            CornerRadius="12">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                Text="{x:Bind IndexStatusCode}" />
+                        </Border>
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind Path}"
+                            TextTrimming="CharacterEllipsis" />
+                        <Button
+                            x:Uid="UnstageFileButton"
+                            Grid.Column="2"
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="UnstageFile_Click">
+                            <SymbolIcon Symbol="Remove" />
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

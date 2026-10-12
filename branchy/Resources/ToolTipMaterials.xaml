@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Based on the native WinUI tooltip layout and OpenStates.
+         Only the background host differs; see WinUI-LICENSE.txt. -->
+    <Style x:Key="DesktopAcrylicToolTipStyle" TargetType="ToolTip" BasedOn="{StaticResource DefaultToolTipStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Grid x:Name="LayoutRoot" MaxWidth="{TemplateBinding MaxWidth}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="OpenStates">
+                                <VisualState x:Name="Closed">
+                                    <Storyboard>
+                                        <FadeOutThemeAnimation TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Opened">
+                                    <Storyboard>
+                                        <FadeInThemeAnimation TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" BackgroundSizing="{TemplateBinding BackgroundSizing}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                            <Grid>
+                                <SystemBackdropElement CornerRadius="{TemplateBinding CornerRadius}" IsHitTestVisible="False">
+                                    <SystemBackdropElement.SystemBackdrop>
+                                        <DesktopAcrylicBackdrop />
+                                    </SystemBackdropElement.SystemBackdrop>
+                                </SystemBackdropElement>
+                                <Border Background="{ThemeResource BranchyAcrylicHighContrastBackground}"
+                                    CornerRadius="{TemplateBinding CornerRadius}" IsHitTestVisible="False" />
+                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    ContentTransitions="{TemplateBinding ContentTransitions}" Padding="{TemplateBinding Padding}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

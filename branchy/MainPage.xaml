@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Branchy.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:converters="using:Branchy.Converters"
+    xmlns:controls="using:Branchy.Controls"
+    xmlns:local="using:Branchy"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Branchy.Models"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required">
+
+    <Page.Resources>
+        <!-- Reveal the window Mica instead of NavigationView's default content layer. -->
+        <ResourceDictionary>
+        <ResourceDictionary.ThemeDictionaries>
+            <ResourceDictionary x:Key="Light">
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+            </ResourceDictionary>
+            <ResourceDictionary x:Key="Default">
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+            </ResourceDictionary>
+            <ResourceDictionary x:Key="HighContrast">
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="{ThemeResource SystemColorWindowColor}" />
+            </ResourceDictionary>
+        </ResourceDictionary.ThemeDictionaries>
+        <converters:DiffLineKindToVisibilityConverter x:Key="DiffLineKindToVisibilityConverter" />
+        <FontFamily x:Key="FluentSystemIconsRegular">ms-appx:///Assets/Fonts/FluentSystemIcons-Regular.ttf#FluentSystemIcons-Regular</FontFamily>
+        <Style x:Key="FluentNavigationIconStyle" TargetType="FontIcon">
+            <Setter Property="FontFamily" Value="{StaticResource FluentSystemIconsRegular}" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <CompositeTransform ScaleX="1.35" ScaleY="1.35" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style
+            x:Key="RoundedTopNavigationOverflowButtonStyle"
+            BasedOn="{StaticResource DefaultButtonStyle}"
+            TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BackgroundSizing" Value="InnerBorderEdge" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Width" Value="40" />
+        </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="BranchButtonStates">
+                <VisualState x:Name="CompactBranchButton">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BranchNameText.Visibility" Value="Collapsed" />
+                        <Setter Target="BranchManagerButton.Padding" Value="8,4" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="FullBranchButton">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BranchNameText.Visibility" Value="Visible" />
+                        <Setter Target="BranchManagerButton.Padding" Value="10,4" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="HeaderNavigationOrientationStates">
+                <VisualState x:Name="MinimalHeaderNavigation">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AppNavigationView.PaneDisplayMode" Value="LeftMinimal" />
+                        <Setter Target="HeaderGrid.Margin" Value="64,0,16,0" />
+                        <Setter Target="WorkspaceGrid.Margin" Value="16,0,16,12" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="TopHeaderNavigation">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1000" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AppNavigationView.PaneDisplayMode" Value="Top" />
+                        <Setter Target="HeaderGrid.Margin" Value="16,0" />
+                        <Setter Target="WorkspaceGrid.Margin" Value="16,8,16,12" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <NavigationView
+        x:Name="AppNavigationView"
+        AlwaysShowHeader="False"
+        Background="Transparent"
+        CompactModeThresholdWidth="1000"
+        ExpandedModeThresholdWidth="1000"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        IsTitleBarAutoPaddingEnabled="False"
+        ItemInvoked="AppNavigationView_ItemInvoked"
+        SizeChanged="AppNavigationView_SizeChanged"
+        PaneDisplayMode="Auto">
+        <NavigationView.MenuItems>
+            <NavigationViewItem
+                x:Name="HomeNavigationItem"
+                x:Uid="HomeNavigationItem"
+                IsSelected="True"
+                SelectsOnInvoked="True"
+                Tag="Home">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Home" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItemSeparator />
+            <NavigationViewItem
+                x:Name="OpenRepositoryNavigationItem"
+                x:Uid="OpenRepositoryNavigationItem"
+                SelectsOnInvoked="False"
+                Tag="Open">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Folder" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Uid="CloneRepositoryNavigationItem"
+                SelectsOnInvoked="False"
+                Tag="Clone">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Copy" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Uid="RefreshNavigationItem"
+                IsEnabled="{x:Bind ViewModel.HasRepository, Mode=OneWay}"
+                SelectsOnInvoked="False"
+                Tag="Refresh">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Refresh" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItemSeparator />
+            <NavigationViewItem
+                x:Uid="RemoteManagerNavigationItem"
+                SelectsOnInvoked="False"
+                Tag="Remotes"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="World" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Uid="FetchNavigationItem"
+                IsEnabled="{x:Bind ViewModel.HasRepository, Mode=OneWay}"
+                SelectsOnInvoked="False"
+                Tag="Fetch">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE38E;" Style="{StaticResource FluentNavigationIconStyle}" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Uid="PullNavigationItem"
+                IsEnabled="{x:Bind ViewModel.HasRepository, Mode=OneWay}"
+                SelectsOnInvoked="False"
+                Tag="Pull">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xF15A;" Style="{StaticResource FluentNavigationIconStyle}" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Uid="PushNavigationItem"
+                IsEnabled="{x:Bind ViewModel.HasRepository, Mode=OneWay}"
+                SelectsOnInvoked="False"
+                Tag="Push">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE0CC;" Style="{StaticResource FluentNavigationIconStyle}" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItemSeparator />
+            <NavigationViewItem
+                x:Uid="HistoryNavigationItem"
+                SelectsOnInvoked="False"
+                Tag="History"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Clock" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Name="PlanningNavigationItem"
+                x:Uid="PlanningNavigationItem"
+                SelectsOnInvoked="True"
+                Tag="Planning"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xEC9A;" Style="{StaticResource FluentNavigationIconStyle}" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Uid="TagManagerNavigationItem"
+                SelectsOnInvoked="False"
+                Tag="Tags"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Tag" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem
+                x:Uid="RepositoryOptionsNavigationItem"
+                SelectsOnInvoked="False"
+                Tag="Repository"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE43C;" Style="{StaticResource FluentNavigationIconStyle}" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem
+                x:Name="SettingsNavigationItem"
+                x:Uid="SettingsNavigationItem"
+                PointerEntered="SettingsButton_PointerEntered"
+                PointerExited="SettingsButton_PointerExited"
+                PointerPressed="SettingsButton_PointerPressed"
+                PointerReleased="SettingsButton_PointerReleased"
+                SelectsOnInvoked="False"
+                Tag="Settings">
+                <NavigationViewItem.Icon>
+                    <AnimatedIcon x:Name="NavigationSettingsAnimatedIcon">
+                        <AnimatedIcon.Source>
+                            <animatedvisuals:AnimatedSettingsVisualSource />
+                        </AnimatedIcon.Source>
+                        <AnimatedIcon.FallbackIconSource>
+                            <FontIconSource Glyph="&#xE713;" />
+                        </AnimatedIcon.FallbackIconSource>
+                    </AnimatedIcon>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.FooterMenuItems>
+
+        <Grid x:Name="RootLayout" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid
+            x:Name="HomeSurface"
+            Grid.RowSpan="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+        <Grid
+            x:Name="HeaderGrid"
+            Margin="16,0"
+            Padding="0,16,0,0"
+            SizeChanged="HeaderGrid_SizeChanged">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="RepositoryHeaderColumn" Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                VerticalAlignment="Center"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    x:Name="RepositoryInfoPanel"
+                    Grid.Column="0">
+                    <TextBlock
+                        x:Name="RepositoryNameTextBlock"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Text="{x:Bind ViewModel.RepositoryName, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis"
+                        ToolTipService.ToolTip="{x:Bind ViewModel.RepositoryName, Mode=OneWay}" />
+                    <TextBlock
+                        x:Name="RepositoryPathTextBlock"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind ViewModel.RepositoryPath, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <Button
+                    x:Name="BranchManagerButton"
+                    x:Uid="BranchManagerButton"
+                    Grid.Column="2"
+                    MinWidth="40"
+                    Padding="10,4"
+                    Background="{ThemeResource AccentFillColorSecondaryBrush}"
+                    BorderThickness="0"
+                    Click="BranchManagerButton_Click"
+                    Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                    SizeChanged="BranchManagerButton_SizeChanged"
+                    ToolTipService.ToolTip="{x:Bind ViewModel.SwitchBranchToolTip, Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <SymbolIcon Symbol="Switch" />
+                        <TextBlock
+                            x:Name="BranchNameText"
+                            x:Uid="SwitchBranchText"
+                            MaxWidth="180"
+                            TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <CommandBar
+                x:Name="HeaderCommandBar"
+                Grid.Column="1"
+                MinWidth="48"
+                Padding="0"
+                Background="Transparent"
+                DefaultLabelPosition="Right"
+                IsDynamicOverflowEnabled="True"
+                OverflowButtonVisibility="Auto"
+                SizeChanged="HeaderCommandBar_SizeChanged"
+                Visibility="Collapsed">
+            <AppBarButton
+                x:Uid="OpenRepositoryButton"
+                Command="{x:Bind ViewModel.OpenRepositoryCommand}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Folder" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton
+                x:Uid="CloneRepositoryButton"
+                Click="CloneRepositoryButton_Click">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE8C8;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton
+                x:Uid="RefreshButton"
+                Command="{x:Bind ViewModel.RefreshCommand}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Refresh" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarSeparator />
+            <AppBarButton
+                x:Uid="RemoteManagerButton"
+                Click="RemoteManagerButton_Click"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="World" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton
+                x:Uid="FetchButton"
+                Command="{x:Bind ViewModel.FetchCommand}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Download" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton
+                x:Uid="PullButton"
+                Command="{x:Bind ViewModel.PullCommand}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE896;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton
+                x:Uid="PushButton"
+                Command="{x:Bind ViewModel.PushCommand}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Upload" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarSeparator />
+            <AppBarButton
+                x:Uid="HistoryButton"
+                Click="HistoryButton_Click"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Clock" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton
+                x:Uid="TagManagerButton"
+                Click="TagManagerButton_Click"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Tag" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton
+                x:Uid="RepositoryOptionsButton"
+                Click="RepositoryOptionsButton_Click"
+                Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE43C;" Style="{StaticResource FluentNavigationIconStyle}" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+                <AppBarButton
+                x:Name="SettingsButton"
+                x:Uid="SettingsButton"
+                Click="SettingsButton_Click"
+                PointerEntered="SettingsButton_PointerEntered"
+                PointerExited="SettingsButton_PointerExited"
+                PointerPressed="SettingsButton_PointerPressed"
+                PointerReleased="SettingsButton_PointerReleased">
+                <AppBarButton.Icon>
+                    <AnimatedIcon x:Name="SettingsAnimatedIcon">
+                        <AnimatedIcon.Source>
+                            <animatedvisuals:AnimatedSettingsVisualSource />
+                        </AnimatedIcon.Source>
+                        <AnimatedIcon.FallbackIconSource>
+                            <FontIconSource Glyph="&#xE713;" />
+                        </AnimatedIcon.FallbackIconSource>
+                    </AnimatedIcon>
+                </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar>
+        </Grid>
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="16,0,16,8"
+            Spacing="6">
+            <InfoBar
+                x:Uid="ErrorInfoBar"
+                IsClosable="True"
+                IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+                Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                Severity="Error" />
+            <InfoBar
+                x:Uid="ConflictInfoBar"
+                IsClosable="False"
+                IsOpen="{x:Bind ViewModel.HasConflicts, Mode=OneWay}"
+                Message="{x:Bind ViewModel.ConflictMessage, Mode=OneWay}"
+                Severity="Warning" />
+        </StackPanel>
+
+        <Grid
+            Grid.Row="2"
+            Margin="24"
+            Visibility="{x:Bind ViewModel.HasNoRepository, Mode=OneWay}">
+            <StackPanel
+                MaxWidth="520"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="16"
+                Visibility="{x:Bind ViewModel.HasNoRepositorySuggestion, Mode=OneWay}">
+                <FontIcon
+                    HorizontalAlignment="Center"
+                    FontSize="56"
+                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                    Glyph="&#xE8B7;" />
+                <TextBlock
+                    x:Uid="RepositoryEmptyTitle"
+                    HorizontalAlignment="Center"
+                    FontSize="28"
+                    FontWeight="SemiBold" />
+                <TextBlock
+                    x:Uid="RepositoryEmptyDescription"
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button
+                        x:Uid="BrowseRepositoryButton"
+                        Command="{x:Bind ViewModel.OpenRepositoryCommand}"
+                        Style="{StaticResource AccentButtonStyle}" />
+                    <Button
+                        x:Uid="CloneEmptyRepositoryButton"
+                        Click="CloneRepositoryButton_Click" />
+                </StackPanel>
+            </StackPanel>
+
+            <Border
+                MaxWidth="620"
+                Padding="28"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="12"
+                Visibility="{x:Bind ViewModel.HasRepositorySuggestion, Mode=OneWay}">
+                <StackPanel Spacing="16">
+                    <FontIcon
+                        HorizontalAlignment="Center"
+                        FontSize="48"
+                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                        Glyph="&#xE74E;" />
+                    <TextBlock
+                        x:Uid="InitializeRepositoryTitle"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource TitleTextBlockStyle}" />
+                    <TextBlock
+                        x:Uid="InitializeRepositoryDescription"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Text="{x:Bind ViewModel.SuggestedRepositoryPath, Mode=OneWay}"
+                        TextAlignment="Center"
+                        TextTrimming="CharacterEllipsis" />
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            x:Uid="InitializeRepositoryButton"
+                            Command="{x:Bind ViewModel.InitializeRepositoryCommand}"
+                            Style="{StaticResource AccentButtonStyle}" />
+                        <Button
+                            x:Uid="BrowseOtherRepositoryButton"
+                            Command="{x:Bind ViewModel.OpenRepositoryCommand}" />
+                        <Button
+                            x:Uid="CloneSuggestedRepositoryButton"
+                            Click="CloneRepositoryButton_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid
+            x:Name="WorkspaceGrid"
+            Grid.Row="2"
+            Margin="16,8,16,12"
+            SizeChanged="WorkspaceGrid_SizeChanged"
+            Visibility="{x:Bind ViewModel.HasRepository, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="ChangesColumn" Width="340" />
+                <ColumnDefinition x:Name="FirstGutterColumn" Width="12" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition x:Name="SecondGutterColumn" Width="12" />
+                <ColumnDefinition x:Name="CommitColumn" Width="320" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                x:Name="ChangesPanel"
+                Grid.Column="0"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Margin="16,8,8,4" ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            x:Uid="ChangesTitle"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <Button
+                            Grid.Column="1"
+                            Padding="10,5"
+                            Command="{x:Bind ViewModel.ToggleAllChangesCommand}"
+                            Content="{x:Bind ViewModel.ToggleAllChangesLabel, Mode=OneWay}"
+                            ToolTipService.ToolTip="{x:Bind ViewModel.ToggleAllChangesLabel, Mode=OneWay}" />
+                    </Grid>
+                    <Grid Grid.Row="1" RowSpacing="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <SelectorBar
+                            x:Name="ChangesSelector"
+                            HorizontalAlignment="Stretch"
+                            SelectionChanged="ChangesSelector_SelectionChanged">
+                            <SelectorBarItem
+                                x:Name="UnstagedSelectorItem"
+                                x:Uid="UnstagedHeader" />
+                            <SelectorBarItem
+                                x:Name="StagedSelectorItem"
+                                x:Uid="StagedHeader" />
+                        </SelectorBar>
+                        <Frame
+                            x:Name="ChangesFrame"
+                            Grid.Row="1"
+                            IsNavigationStackEnabled="False" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border
+                x:Name="DiffPanel"
+                Grid.Column="2"
+                Unloaded="DiffPanel_Unloaded"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Border.RenderTransform><TranslateTransform x:Name="DiffLayoutTranslation" /></Border.RenderTransform>
+                <Grid RowSpacing="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="16,14,16,4" Spacing="3">
+                        <TextBlock x:Uid="DiffTitle" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{x:Bind ViewModel.SelectedFilePath, Mode=OneWay}" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                    <controls:DiffViewer x:Name="WorkspaceDiff" Grid.Row="1" Margin="12,0,12,12"
+                        Lines="{x:Bind ViewModel.DiffLines, Mode=OneWay}"
+                        CanEdit="{x:Bind ViewModel.CanQuickEdit, Mode=OneWay}"
+                        ExpansionChanged="Diff_ExpansionChanged" EditRequested="Diff_EditRequested" />
+                </Grid>
+            </Border>
+
+            <Border
+                x:Name="CommitPanel"
+                Grid.Column="4"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Uid="CommitTitle" Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <TextBox
+                        x:Uid="CommitMessageBox"
+                        Grid.Row="1"
+                        Margin="0,12,0,12"
+                        AcceptsReturn="True"
+                        Text="{x:Bind ViewModel.CommitMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="Wrap" />
+                    <Grid Grid.Row="2" ColumnSpacing="8" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="CommitPrimaryColumn" Width="*" />
+                            <ColumnDefinition x:Name="CommitAmendColumn" Width="0" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            x:Name="CommitPrimaryButton"
+                            x:Uid="CommitButton"
+                            HorizontalAlignment="Stretch"
+                            Command="{x:Bind ViewModel.CommitCommand}"
+                            Style="{StaticResource AccentButtonStyle}" />
+                        <Button
+                            x:Name="AmendStagedButton"
+                            x:Uid="AmendButton"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            Click="AmendButton_Click"
+                            IsEnabled="{x:Bind ViewModel.CanAmend, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.CanShowAmend, Mode=OneWay}" />
+                        <Button
+                            x:Uid="AmendMessageButton"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            HorizontalAlignment="Stretch"
+                            Click="AmendMessageButton_Click"
+                            IsEnabled="{x:Bind ViewModel.CanAmendMessage, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.CanShowAmendMessage, Mode=OneWay}" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border
+            Grid.Row="3"
+            Padding="16,8"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressRing
+                    Width="16"
+                    Height="16"
+                    IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+            </StackPanel>
+        </Border>
+        </Grid>
+
+        <Frame
+            x:Name="WorkspaceFrame"
+            Grid.RowSpan="4"
+            Background="Transparent"
+            IsNavigationStackEnabled="False">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition>
+                        <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            <SlideNavigationTransitionInfo Effect="FromRight" />
+                        </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    </NavigationThemeTransition>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
+        </Grid>
+        </NavigationView>
+    </Grid>
+</Page>

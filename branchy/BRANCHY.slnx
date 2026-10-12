@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="ContextMenu/Branchy.ContextMenu.vcxproj" />
+  <Project Path="BRANCHY.csproj" />
+</Solution>
